@@ -23,16 +23,6 @@ public class Main extends Application{
 
         launch(args);
 
-//        try {
-//            DBConnection.makeConnection();
-//            launch(args);
-//            DBConnection.closeConnection();
-//        } catch (SQLException ex) {
-//            System.out.println("SQL Error: " + ex.getMessage());
-//        } catch (Exception ex) {
-//            System.out.println("Error 2: " + ex.getMessage());
-//
-//        }
     }
 
 }
