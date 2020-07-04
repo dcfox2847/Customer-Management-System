@@ -14,7 +14,7 @@ public class dbConnection {
     private static final String PASSWORD = "53688547362";
     private static final String DRIVER = "com.mysql.jdbc.Driver";
     private static final String CONNECTION_ADDR = "jdbc:mysql://3.227.166.251/U05mLM";
-    static Connection conn = null;
+    static java.sql.Connection conn = null;
     static Statement stmt = null;
     static ResultSet rs = null;
 
@@ -28,16 +28,16 @@ public class dbConnection {
     public static void makeConnection() throws SQLException {
         try{
             // Register the Driver
-            Class.forName(DRIVER);
+//            Class.forName(DRIVER);
 
             //Open the connection
             System.out.println("Connection to database...");
-            conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+            conn = DriverManager.getConnection(CONNECTION_ADDR, USERNAME, PASSWORD);
 
             //Execute a query
             System.out.println("Creating a statement....");
             stmt = conn.createStatement();
-            String testStatement = "Select * from Customer";
+            String testStatement = "Select * from customer";
             rs = stmt.executeQuery(testStatement);
 
             // Extract the data from the result set
