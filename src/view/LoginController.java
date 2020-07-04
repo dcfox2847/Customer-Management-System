@@ -2,13 +2,11 @@ package view;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import java.awt.event.ActionEvent;
 import java.net.URL;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
@@ -33,17 +31,26 @@ public class LoginController implements Initializable {
     @FXML
     private Label applicationGreeting;
 
+    String userName = "";
+    String password = "";
+    Alert loginAlert = new Alert(Alert.AlertType.INFORMATION);
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        Locale locale = Locale.getDefault();
+        resources = ResourceBundle.getBundle("lang/login", locale);
 
     }
 
     // Form control handling methods
 
     public void loginButtonClick(javafx.event.ActionEvent actionEvent) {
-        String userName = usernameField.getText();
-        String password = passwordField.getText();
+        userName = usernameField.getText();
+        password = passwordField.getText();
+        // The below can be moved to a function used for error checking to show the user what is wrong.
         System.out.println("username: " + userName + ". Password: " + password + ".");
+        loginAlert.setContentText("User: " + userName + " Pass: " + password);
+        loginAlert.show();
     }
 }
