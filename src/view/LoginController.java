@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
+import java.awt.event.ActionEvent;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -38,5 +39,11 @@ public class LoginController implements Initializable {
 
     }
 
+    // Form control handling methods
 
+    public void loginButtonClick(javafx.event.ActionEvent actionEvent) {
+        String userName = usernameField.getText();
+        String password = passwordField.getText();
+        System.out.println("username: " + userName + ". Password: " + password + ".");
+    }
 }
