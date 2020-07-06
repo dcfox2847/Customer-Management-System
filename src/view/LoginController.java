@@ -34,12 +34,20 @@ public class LoginController implements Initializable {
     String userName = "";
     String password = "";
     Alert loginAlert = new Alert(Alert.AlertType.INFORMATION);
+    ResourceBundle rb;
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Locale locale = Locale.getDefault();
-        resources = ResourceBundle.getBundle("lang/login", locale);
+        resources = ResourceBundle.getBundle("languages/lang", locale);
+        usernameLabel.setText(resources.getString("usrLbl"));
+        passwordLabel.setText(resources.getString("passLbl"));
+        loginButton.setText(resources.getString("buttonText"));
+        applicationGreeting.setText(resources.getString("appMessage"));
+        loginAlert.setTitle(resources.getString("alertTitle"));
+        loginAlert.setHeaderText(resources.getString("alertHeader"));
+        loginAlert.setContentText(resources.getString("alertMessage"));
 
     }
 
