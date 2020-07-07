@@ -24,9 +24,8 @@ public class dbUser {
     // class methods
     public static Boolean userLogin(String username, String password){
         try {
-            Statement statement = dbConnection.conn.createStatement();
             String query = "SELECT * FROM user WHERE userName='" + username + "' AND password='" + password + "'";
-            ResultSet userResults = statement.executeQuery(query);
+            ResultSet userResults = dbConnection.stmt.executeQuery(query);
             if(userResults.next()){
                 currentUser = new User();
                 currentUser.setUserName(userResults.getString("userName"));

@@ -33,6 +33,7 @@ public class dbConnection {
             //Open the connection
             System.out.println("Connection to database...");
             conn = DriverManager.getConnection(CONNECTION_ADDR, USERNAME, PASSWORD);
+            stmt = conn.createStatement();
             System.out.println("Connection complete....");
 
 //            //Execute a query
