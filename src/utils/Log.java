@@ -6,8 +6,8 @@ import java.time.ZonedDateTime;
 public class Log {
 
     // Class variables go here
-   private static final String LOGTITLE = "log" + ZonedDateTime.now();
-
+   private static final String LOGTITLE = "log";
+   private static final String filePath = "C:\\Users\\dcfox\\Desktop\\Coding\\C195\\src\\utils\\" + LOGTITLE;
 
     // Class Constructors go here
     public Log() {};
@@ -15,7 +15,7 @@ public class Log {
     // Class methods go here
 
     public static void writeLog(int userID, String username, boolean success) {
-        try (FileWriter fileWriter = new FileWriter(LOGTITLE, true);
+        try (FileWriter fileWriter = new FileWriter(filePath, true);
                 BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
                 PrintWriter printWriter = new PrintWriter(bufferedWriter);){
             printWriter.println("User ID: "+ userID + " , User Name: " + username + " , Time: " + ZonedDateTime.now()

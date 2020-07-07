@@ -8,6 +8,8 @@ import java.awt.event.ActionEvent;
 import java.net.URL;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import utils.Log;
+import dao.*;
 
 public class LoginController implements Initializable {
 
@@ -35,6 +37,7 @@ public class LoginController implements Initializable {
     String password = "";
     Alert loginAlert = new Alert(Alert.AlertType.INFORMATION);
     ResourceBundle rb;
+    model.User currUser;
 
 
     @Override
@@ -56,9 +59,15 @@ public class LoginController implements Initializable {
     public void loginButtonClick(javafx.event.ActionEvent actionEvent) {
         userName = usernameField.getText();
         password = passwordField.getText();
+        boolean loginSuccess = dbUser.userLogin(userName, password);
+        if(loginSuccess){
+            currUser = dbUser.getCurrentUser();
+            Log.writeLog(currUser.getUserID(),currUser.getUserName(),loginSuccess);
+        }
+
         // The below can be moved to a function used for error checking to show the user what is wrong.
-        System.out.println("username: " + userName + ". Password: " + password + ".");
-        loginAlert.setContentText("User: " + userName + " Pass: " + password);
+        System.out.println("username: " + currUser.getUserName() + ". Password: " + currUser.getUserPassword() + ".");
+        loginAlert.setContentText("User: " + currUser.getUserName() + " Pass: " + currUser.getUserPassword());
         loginAlert.show();
     }
 }
