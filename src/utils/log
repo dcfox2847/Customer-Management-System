@@ -4,3 +4,4 @@ User ID: 1 , User Name: test , Time: 2020-07-08T01:50:12.020-04:00[America/New_Y
 User ID: 0 , User Name: Invalid Login , Time: 2020-07-08T01:50:20.350-04:00[America/New_York] , Login Successful:  False
 User ID: 0 , User Name: Invalid Login , Time: 2020-07-08T01:51:25.149-04:00[America/New_York] , Login Successful:  False
 User ID: 1 , User Name: test , Time: 2020-07-08T01:57:03.051-04:00[America/New_York] , Login Successful:  True
+User ID: 1 , User Name: test , Time: 2020-07-08T14:23:05.786-04:00[America/New_York] , Login Successful:  True

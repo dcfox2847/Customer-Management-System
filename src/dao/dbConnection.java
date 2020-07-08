@@ -28,7 +28,7 @@ public class dbConnection {
     public static void makeConnection() throws SQLException {
         try{
              //Register the Driver
-            Class.forName(DRIVER);
+            //Class.forName(DRIVER);
 
             //Open the connection
             System.out.println("Connection to database...");
