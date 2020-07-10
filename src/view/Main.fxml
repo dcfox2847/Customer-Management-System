@@ -5,40 +5,81 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-
-<AnchorPane prefHeight="650.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MainController">
+<AnchorPane prefHeight="650.0" prefWidth="841.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MainController">
    <children>
-      <Label alignment="CENTER" layoutX="74.0" layoutY="17.0" prefHeight="66.0" prefWidth="583.0" text="Main Menu">
+      <Label alignment="CENTER" layoutX="109.0" layoutY="14.0" prefHeight="66.0" prefWidth="583.0" text="Main Menu">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <HBox alignment="CENTER" layoutX="96.0" layoutY="536.0" prefHeight="100.0" prefWidth="561.0">
+      <HBox alignment="CENTER" layoutX="32.0" layoutY="550.0" prefHeight="84.0" prefWidth="411.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="130.0" text="Weekly View">
+            <Button fx:id="reloadButton" mnemonicParsing="false" prefHeight="60.0" prefWidth="111.0" text="Reload View">
                <HBox.margin>
                   <Insets left="10.0" right="10.0" />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="130.0" text="Customer Lookup">
+            <Button fx:id="custButton" mnemonicParsing="false" prefHeight="60.0" prefWidth="116.0" text="Customer Details">
                <HBox.margin>
                   <Insets left="10.0" right="10.0" />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="130.0" text="Appointment Lookup">
+            <Button fx:id="aptButton" mnemonicParsing="false" prefHeight="60.0" prefWidth="135.0" text="Appointment Details">
                <HBox.margin>
                   <Insets left="10.0" right="10.0" />
                </HBox.margin>
             </Button>
          </children>
       </HBox>
-      <TableView layoutX="96.0" layoutY="83.0" prefHeight="449.0" prefWidth="607.0">
+      <TableView fx:id="aptTableView" layoutX="32.0" layoutY="83.0" prefHeight="449.0" prefWidth="743.0">
         <columns>
-          <TableColumn prefWidth="124.0" text="Appointment ID" />
-          <TableColumn prefWidth="131.0" text="Customer Name" />
-            <TableColumn prefWidth="164.0" text="Appointment Description" />
-            <TableColumn minWidth="0.0" prefWidth="94.0" text="Location" />
+          <TableColumn fx:id="aptIdColumn" prefWidth="108.0" text="Appointment ID" />
+          <TableColumn fx:id="aptCustNameColumn" prefWidth="105.0" text="Customer Name" />
+            <TableColumn fx:id="aptDescriptionColumn" prefWidth="240.0" text="Appointment Description" />
+            <TableColumn fx:id="aptLocationColumn" minWidth="0.0" prefWidth="98.0" text="Location" />
+            <TableColumn fx:id="aptStartColumn" prefWidth="86.0" text="Start Time" />
+            <TableColumn fx:id="aptEndColumn" prefWidth="105.0" text="End Time" />
         </columns>
       </TableView>
+      <HBox alignment="CENTER" layoutX="642.0" layoutY="550.0" prefHeight="84.0" prefWidth="176.0">
+         <children>
+            <VBox alignment="CENTER" prefHeight="77.0" prefWidth="147.0">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" text="Calendar View Type">
+                     <padding>
+                        <Insets bottom="5.0" top="5.0" />
+                     </padding>
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <RadioButton fx:id="aptWeeklyRadio" contentDisplay="CENTER" mnemonicParsing="false" text="Weekly" textAlignment="CENTER">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </RadioButton>
+                  <RadioButton fx:id="aptMonthlyRadio" mnemonicParsing="false" text="Monthly">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </RadioButton>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <VBox alignment="CENTER" layoutX="442.0" layoutY="547.0" prefHeight="90.0" prefWidth="190.0">
+         <children>
+            <Label text="Choose a date:">
+               <padding>
+                  <Insets bottom="5.0" top="5.0" />
+               </padding>
+            </Label>
+            <DatePicker fx:id="aptDatePicker" prefHeight="35.0" prefWidth="187.0">
+               <padding>
+                  <Insets bottom="5.0" top="5.0" />
+               </padding>
+            </DatePicker>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>
