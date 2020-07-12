@@ -6,3 +6,6 @@ User ID: 0 , User Name: Invalid Login , Time: 2020-07-08T01:51:25.149-04:00[Amer
 User ID: 1 , User Name: test , Time: 2020-07-08T01:57:03.051-04:00[America/New_York] , Login Successful:  True
 User ID: 1 , User Name: test , Time: 2020-07-08T14:23:05.786-04:00[America/New_York] , Login Successful:  True
 User ID: 1 , User Name: test , Time: 2020-07-10T01:05:33.120-04:00[America/New_York] , Login Successful:  True
+User ID: 1 , User Name: test , Time: 2020-07-12T16:16:29.433-04:00[America/New_York] , Login Successful:  True
+User ID: 0 , User Name: Invalid Login , Time: 2020-07-12T16:20:54.940-04:00[America/New_York] , Login Successful:  False
+User ID: 1 , User Name: test , Time: 2020-07-12T16:21:17.008-04:00[America/New_York] , Login Successful:  True
