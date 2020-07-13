@@ -12,6 +12,7 @@ public class Appointment {
     // Class Variables
     private final SimpleIntegerProperty aID = new SimpleIntegerProperty();
     private final SimpleIntegerProperty aCustID = new SimpleIntegerProperty();
+    private final SimpleStringProperty aCustName = new SimpleStringProperty();
     private final SimpleStringProperty aStartTime = new SimpleStringProperty();
     private final SimpleStringProperty aEndTime = new SimpleStringProperty();
     private final SimpleStringProperty aTitle = new SimpleStringProperty();
@@ -34,6 +35,18 @@ public class Appointment {
 
     }
 
+//    public Appointment(int id, String custName, String start, String end, String title, String description, String location, String contact){
+//        setaID(id);
+//        setaCustName(custName);
+//        setaStartTime(start);
+//        setaEndTime(end);
+//        setaTitle(title);
+//        setaDesc(description);
+//        setaLocation(location);
+//        setaContact(contact);
+//
+//    }
+
     // Getter and Setter methods
     public int getaID() {
         return aID.get();
@@ -47,17 +60,11 @@ public class Appointment {
         this.aID.set(aID);
     }
 
-    public int getaCustID() {
-        return aCustID.get();
-    }
+    public int getaCustID() { return aCustID.get(); }
 
-    public SimpleIntegerProperty aCustIDProperty() {
-        return aCustID;
-    }
+    public SimpleIntegerProperty aCustIDProperty() { return aCustID; }
 
-    public void setaCustID(int aCustID) {
-        this.aCustID.set(aCustID);
-    }
+    public void setaCustID(int aCustID) { this.aCustID.set(aCustID); }
 
     public String getaStartTime() {
         return aStartTime.get();
@@ -130,6 +137,12 @@ public class Appointment {
     public void setaContact(String aContact) {
         this.aContact.set(aContact);
     }
+
+    public String getaCustName() { return aCustName.get(); }
+
+    public SimpleStringProperty aCustNameProperty() { return aCustName; }
+
+    public void setaCustName(String aCustName) { this.aCustName.set(aCustName); }
 
     // Additional methods for date and time formatting
 

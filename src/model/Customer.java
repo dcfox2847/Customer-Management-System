@@ -16,6 +16,11 @@ public class Customer {
 
     public Customer () {};
 
+    public Customer (int id, String name){
+        setcID(id);
+        setcName(name);
+    };
+
     public Customer (int id, String name, String address, String city, String zip, String phone){
         setcID(id);
         setcName(name);

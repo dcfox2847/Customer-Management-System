@@ -8,7 +8,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Locale;
@@ -44,7 +43,7 @@ public class LoginController implements Initializable {
     String password = "";
     Alert loginAlert = new Alert(Alert.AlertType.INFORMATION);
     ResourceBundle rb;
-    model.User currUser;
+    static model.User currUser;
 
 
     @Override
@@ -75,7 +74,7 @@ public class LoginController implements Initializable {
             Stage stage = new Stage();
             Parent root = null;
             try {
-                root = FXMLLoader.load(getClass().getResource("/view/Main.fxml"));
+                root = FXMLLoader.load(getClass().getResource("/view/MainScreen.fxml"));
             } catch (IOException e) {
                 e.printStackTrace();
             }

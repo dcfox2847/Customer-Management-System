@@ -1,0 +1,109 @@
+package dao;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import java.sql.*;
+import model.Customer;
+
+public class dbCustomer {
+    private static ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
+
+    public static Customer getCustomer(int id) {
+        try {
+            String getCustQuery = "SELECT * FROM customer WHERE customerId='" + id + "'";
+            ResultSet results = dbConnection.stmt.executeQuery(getCustQuery);
+            if(results.next()) {
+                Customer customer = new Customer();
+                customer.setcName(results.getString("customerName"));
+                return customer;
+            }
+        } catch (SQLException e) {
+            System.out.println("SQLException: " + e.getMessage());
+        }
+        return null;
+    }
+
+    // Returns all Customers in Database
+    public static ObservableList<Customer> getAllCustomers() {
+        allCustomers.clear();
+        try {
+            String allCustQuery = "SELECT customer.customerId, customer.customerName, address.address, address.phone, address.postalCode, city.city"
+                    + " FROM customer INNER JOIN address ON customer.addressId = address.addressId "
+                    + "INNER JOIN city ON address.cityId = city.cityId";
+            ResultSet results = dbConnection.stmt.executeQuery(allCustQuery);
+            while(results.next()) {
+                Customer customer = new Customer(
+                        results.getInt("customerId"),
+                        results.getString("customerName"),
+                        results.getString("address"),
+                        results.getString("city"),
+                        results.getString("phone"),
+                        results.getString("postalCode"));
+                allCustomers.add(customer);
+            }
+            return allCustomers;
+        } catch (SQLException e) {
+            System.out.println("SQLException: " + e.getMessage());
+            return null;
+        }
+    }
+
+    // Saves new Customer to Database
+    public static boolean saveCustomer(String name, String address, int cityId, String zip, String phone) {
+        try {
+            String queryOne = "INSERT INTO address SET address='" + address + "',address2='', phone='" + phone + "', createDate=NOW(), "
+                    + "createdBy=' ', lastUpdate=NOW(), lastUpdateBy=' ', postalCode='" + zip + "', cityId=" + cityId;
+            int updateOne = dbConnection.stmt.executeUpdate(queryOne);
+            if(updateOne == 1) {
+                int addressId = allCustomers.size() + 1;
+                String queryTwo = "INSERT INTO customer SET customerName='" + name + "', addressId=" + addressId + ", active= 1, "
+                        + "createDate=NOW(), createdBy=' ', lastUpdate=NOW(), lastUpdateBy=' '";
+                int updateTwo = dbConnection.stmt.executeUpdate(queryTwo);
+                if(updateTwo == 1) {
+                    return true;
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("SQLException: " + e.getMessage());
+        }
+        return false;
+    }
+
+    // Updates an existing Customer in Database
+    public static boolean updateCustomer(int id, String name, String address, int cityId, String zip, String phone) {
+        try {
+            String queryOne = "UPDATE address SET address='" + address + "', cityId=" + cityId + ", postalCode='" + zip + "', phone='" + phone + "' "
+                    + "WHERE addressId=" + id;
+            int updateOne = dbConnection.stmt.executeUpdate(queryOne);
+            if(updateOne == 1) {
+                String queryTwo = "UPDATE customer SET customerName='" + name + "', addressId=" + id + " WHERE customerId=" + id;
+                int updateTwo = dbConnection.stmt.executeUpdate(queryTwo);
+                if(updateTwo == 1) {
+                    return true;
+                }
+            }
+        } catch(SQLException e) {
+            System.out.println("SQLException: " + e.getMessage());
+        }
+        return false;
+    }
+
+    // Deletes Customer from Database
+    public static boolean deleteCustomer(int id) {
+        try {
+            String queryOne = "DELETE FROM customer WHERE customerId=" + id;
+            int updateOne = dbConnection.stmt.executeUpdate(queryOne);
+            if(updateOne == 1) {
+                String queryTwo = "DELETE FROM address WHERE addressId=" + id;
+                int updateTwo = dbConnection.stmt.executeUpdate(queryTwo);
+                if(updateTwo == 1) {
+                    return true;
+                }
+            }
+        } catch(SQLException e) {
+            System.out.println("SQLException: " + e.getMessage());
+        }
+        return false;
+    }
+
+}
