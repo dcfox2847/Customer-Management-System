@@ -6,6 +6,7 @@ import java.util.Locale;
 
 import javafx.collections.*;
 import dao.dbConnection;
+import javafx.scene.control.Alert;
 import model.Appointment;
 import model.Customer;
 import model.User;
@@ -105,6 +106,9 @@ public class dbAppointment {
     public static ObservableList<Appointment> get15MinuteApt(){
         ObservableList<Appointment> apt15Minutes = FXCollections.observableArrayList();
         Appointment apt;
+        Alert alert15Minutes = new Alert(Alert.AlertType.INFORMATION);
+        alert15Minutes.setTitle("Upcoming Appointment");
+        alert15Minutes.setHeaderText("Upcoming Appointment");
         LocalDateTime now = LocalDateTime.now();
         ZoneId zoneId = ZoneId.systemDefault();
         ZonedDateTime zonedDateTime = now.atZone(zoneId);
@@ -120,6 +124,7 @@ public class dbAppointment {
                         resultSet.getString("start"), resultSet.getString("end"), resultSet.getString("title"),
                         resultSet.getString("description"), resultSet.getString("location"), resultSet.getString("contact"));
                 apt15Minutes.add(apt);
+                alert15Minutes.setContentText("You have an appointment with " + apt.getaCustName() + " at " + apt.getaStartTime());
             }
         }catch (SQLException ex){
             System.out.println("SQLException (in the 15 minutes function): " + ex.getMessage());

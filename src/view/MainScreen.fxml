@@ -12,9 +12,9 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <HBox alignment="CENTER" layoutX="32.0" layoutY="550.0" prefHeight="84.0" prefWidth="411.0">
+      <HBox alignment="CENTER" layoutX="56.0" layoutY="550.0" prefHeight="84.0" prefWidth="519.0">
          <children>
-            <Button fx:id="reloadButton" mnemonicParsing="false" prefHeight="60.0" prefWidth="111.0" text="Reload View">
+            <Button fx:id="reloadButton" mnemonicParsing="false" onAction="#clearTable" prefHeight="60.0" prefWidth="111.0" text="Clear Table">
                <HBox.margin>
                   <Insets left="10.0" right="10.0" />
                </HBox.margin>
@@ -33,9 +33,9 @@
       </HBox>
       <TableView fx:id="aptTableView" layoutX="32.0" layoutY="83.0" prefHeight="449.0" prefWidth="743.0">
         <columns>
-          <TableColumn fx:id="aptIdColumn" prefWidth="108.0" text="Appointment ID" />
-          <TableColumn fx:id="aptCustNameColumn" prefWidth="105.0" text="Customer Name" />
-            <TableColumn fx:id="aptDescriptionColumn" prefWidth="240.0" text="Appointment Description" />
+          <TableColumn fx:id="aptIdColumn" prefWidth="81.0" text="Customer ID" />
+          <TableColumn fx:id="aptCustNameColumn" prefWidth="125.0" text="Customer Name" />
+            <TableColumn fx:id="aptDescriptionColumn" prefWidth="247.0" text="Appointment Description" />
             <TableColumn fx:id="aptLocationColumn" minWidth="0.0" prefWidth="98.0" text="Location" />
             <TableColumn fx:id="aptStartColumn" prefWidth="86.0" text="Start Time" />
             <TableColumn fx:id="aptEndColumn" prefWidth="105.0" text="End Time" />
@@ -67,19 +67,5 @@
             </VBox>
          </children>
       </HBox>
-      <VBox alignment="CENTER" layoutX="442.0" layoutY="547.0" prefHeight="90.0" prefWidth="190.0">
-         <children>
-            <Label text="Choose a date:">
-               <padding>
-                  <Insets bottom="5.0" top="5.0" />
-               </padding>
-            </Label>
-            <DatePicker fx:id="aptDatePicker" prefHeight="35.0" prefWidth="187.0">
-               <padding>
-                  <Insets bottom="5.0" top="5.0" />
-               </padding>
-            </DatePicker>
-         </children>
-      </VBox>
    </children>
 </AnchorPane>
