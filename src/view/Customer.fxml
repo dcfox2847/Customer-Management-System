@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="700.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.CustomerController">
+   <children>
+      <Label layoutX="275.0" layoutY="14.0" text="Customer Table">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <TableView fx:id="custTable" layoutX="42.0" layoutY="67.0" prefHeight="541.0" prefWidth="713.0">
+        <columns>
+          <TableColumn fx:id="custIDColumn" prefWidth="75.0" text="Customer ID" />
+          <TableColumn fx:id="custNameColumn" prefWidth="168.0" text="Customer Name" />
+            <TableColumn fx:id="custAddressColumn" prefWidth="98.0" text="Address" />
+            <TableColumn fx:id="custPhoneColumn" prefWidth="111.0" text="Phone #" />
+            <TableColumn fx:id="custZipColumn" prefWidth="98.0" text="Zip Code" />
+            <TableColumn fx:id="custCityColumn" prefWidth="162.0" text="City" />
+        </columns>
+      </TableView>
+      <HBox alignment="CENTER" layoutX="127.0" layoutY="608.0" prefHeight="78.0" prefWidth="570.0">
+         <children>
+            <Button fx:id="custModifyBtn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="139.0" text="Modify Customer">
+               <HBox.margin>
+                  <Insets left="20.0" right="20.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="custAddBtn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="135.0" text="Add Customer">
+               <HBox.margin>
+                  <Insets left="20.0" right="20.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="custBackButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#switchMainrView" prefHeight="50.0" prefWidth="134.0" text="Back">
+               <HBox.margin>
+                  <Insets left="20.0" right="20.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

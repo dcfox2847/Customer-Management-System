@@ -15,6 +15,7 @@ import javafx.fxml.*;
 import javafx.scene.*;
 import javafx.stage.*;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -123,6 +124,20 @@ public class MainScreenController implements Initializable {
 
     public void clearTable(){
         aptTableView.getItems().clear();
+    }
+
+    public void switchCustomerView(javafx.event.ActionEvent actionEvent){
+        ((Node) (actionEvent.getSource())).getScene().getWindow().hide();
+        Stage stage = new Stage();
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("/view/Customer.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
 }

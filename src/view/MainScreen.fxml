@@ -19,7 +19,7 @@
                   <Insets left="10.0" right="10.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="custButton" mnemonicParsing="false" prefHeight="60.0" prefWidth="116.0" text="Customer Details">
+            <Button fx:id="custButton" mnemonicParsing="false" onAction="#switchCustomerView" prefHeight="60.0" prefWidth="116.0" text="Customer Details">
                <HBox.margin>
                   <Insets left="10.0" right="10.0" />
                </HBox.margin>

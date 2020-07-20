@@ -6,8 +6,12 @@ import java.sql.*;
 import model.Customer;
 
 public class dbCustomer {
+
+    // Variables for use in storing customer data (the data structures)
     private static ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
 
+    // Methods used for retrieving customer data
+    // Returns a single customer
     public static Customer getCustomer(int id) {
         try {
             String getCustQuery = "SELECT * FROM customer WHERE customerId='" + id + "'";
@@ -48,7 +52,7 @@ public class dbCustomer {
         }
     }
 
-    // Saves new Customer to Database
+    // Create new customer record
     public static boolean saveCustomer(String name, String address, int cityId, String zip, String phone) {
         try {
             String queryOne = "INSERT INTO address SET address='" + address + "',address2='', phone='" + phone + "', createDate=NOW(), "
@@ -69,7 +73,7 @@ public class dbCustomer {
         return false;
     }
 
-    // Updates an existing Customer in Database
+    // Updates customer record
     public static boolean updateCustomer(int id, String name, String address, int cityId, String zip, String phone) {
         try {
             String queryOne = "UPDATE address SET address='" + address + "', cityId=" + cityId + ", postalCode='" + zip + "', phone='" + phone + "' "
@@ -88,7 +92,7 @@ public class dbCustomer {
         return false;
     }
 
-    // Deletes Customer from Database
+    // Delete customer record
     public static boolean deleteCustomer(int id) {
         try {
             String queryOne = "DELETE FROM customer WHERE customerId=" + id;
