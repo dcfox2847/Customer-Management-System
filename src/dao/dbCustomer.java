@@ -4,6 +4,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import java.sql.*;
 import model.Customer;
+import dao.dbConnection.*;
+
+import static dao.dbConnection.stmt;
 
 public class dbCustomer {
 
@@ -15,7 +18,7 @@ public class dbCustomer {
     public static Customer getCustomer(int id) {
         try {
             String getCustQuery = "SELECT * FROM customer WHERE customerId='" + id + "'";
-            ResultSet results = dbConnection.stmt.executeQuery(getCustQuery);
+            ResultSet results = stmt.executeQuery(getCustQuery);
             if(results.next()) {
                 Customer customer = new Customer();
                 customer.setcName(results.getString("customerName"));
@@ -29,22 +32,22 @@ public class dbCustomer {
 
     // Returns all Customers in Database
     public static ObservableList<Customer> getAllCustomers() {
-        allCustomers.clear();
         try {
             String allCustQuery = "SELECT customer.customerId, customer.customerName, address.address, address.phone, address.postalCode, city.city"
                     + " FROM customer INNER JOIN address ON customer.addressId = address.addressId "
                     + "INNER JOIN city ON address.cityId = city.cityId";
-            ResultSet results = dbConnection.stmt.executeQuery(allCustQuery);
+            ResultSet results = stmt.executeQuery(allCustQuery);
             while(results.next()) {
                 Customer customer = new Customer(
                         results.getInt("customerId"),
                         results.getString("customerName"),
                         results.getString("address"),
                         results.getString("city"),
-                        results.getString("phone"),
-                        results.getString("postalCode"));
+                        results.getString("postalCode"),
+                        results.getString("phone"));
                 allCustomers.add(customer);
             }
+            System.out.println("You have " + allCustomers.size() + " customers returned.");
             return allCustomers;
         } catch (SQLException e) {
             System.out.println("SQLException: " + e.getMessage());
@@ -57,12 +60,12 @@ public class dbCustomer {
         try {
             String queryOne = "INSERT INTO address SET address='" + address + "',address2='', phone='" + phone + "', createDate=NOW(), "
                     + "createdBy=' ', lastUpdate=NOW(), lastUpdateBy=' ', postalCode='" + zip + "', cityId=" + cityId;
-            int updateOne = dbConnection.stmt.executeUpdate(queryOne);
+            int updateOne = stmt.executeUpdate(queryOne);
             if(updateOne == 1) {
                 int addressId = allCustomers.size() + 1;
                 String queryTwo = "INSERT INTO customer SET customerName='" + name + "', addressId=" + addressId + ", active= 1, "
                         + "createDate=NOW(), createdBy=' ', lastUpdate=NOW(), lastUpdateBy=' '";
-                int updateTwo = dbConnection.stmt.executeUpdate(queryTwo);
+                int updateTwo = stmt.executeUpdate(queryTwo);
                 if(updateTwo == 1) {
                     return true;
                 }
@@ -78,10 +81,10 @@ public class dbCustomer {
         try {
             String queryOne = "UPDATE address SET address='" + address + "', cityId=" + cityId + ", postalCode='" + zip + "', phone='" + phone + "' "
                     + "WHERE addressId=" + id;
-            int updateOne = dbConnection.stmt.executeUpdate(queryOne);
+            int updateOne = stmt.executeUpdate(queryOne);
             if(updateOne == 1) {
                 String queryTwo = "UPDATE customer SET customerName='" + name + "', addressId=" + id + " WHERE customerId=" + id;
-                int updateTwo = dbConnection.stmt.executeUpdate(queryTwo);
+                int updateTwo = stmt.executeUpdate(queryTwo);
                 if(updateTwo == 1) {
                     return true;
                 }
@@ -96,10 +99,10 @@ public class dbCustomer {
     public static boolean deleteCustomer(int id) {
         try {
             String queryOne = "DELETE FROM customer WHERE customerId=" + id;
-            int updateOne = dbConnection.stmt.executeUpdate(queryOne);
+            int updateOne = stmt.executeUpdate(queryOne);
             if(updateOne == 1) {
                 String queryTwo = "DELETE FROM address WHERE addressId=" + id;
-                int updateTwo = dbConnection.stmt.executeUpdate(queryTwo);
+                int updateTwo = stmt.executeUpdate(queryTwo);
                 if(updateTwo == 1) {
                     return true;
                 }

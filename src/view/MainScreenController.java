@@ -131,7 +131,7 @@ public class MainScreenController implements Initializable {
         Stage stage = new Stage();
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("/view/Customer.fxml"));
+            root = FXMLLoader.load(getClass().getResource("Customer.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -139,5 +139,4 @@ public class MainScreenController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
-
 }

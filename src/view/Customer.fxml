@@ -7,12 +7,12 @@
 
 <AnchorPane prefHeight="700.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.CustomerController">
    <children>
-      <Label layoutX="275.0" layoutY="14.0" text="Customer Table">
+      <Label layoutX="274.0" layoutY="14.0" text="Customer Table">
          <font>
             <Font size="36.0" />
          </font>
       </Label>
-      <TableView fx:id="custTable" layoutX="42.0" layoutY="67.0" prefHeight="541.0" prefWidth="713.0">
+      <TableView fx:id="custTableView" layoutX="42.0" layoutY="67.0" prefHeight="541.0" prefWidth="713.0">
         <columns>
           <TableColumn fx:id="custIDColumn" prefWidth="75.0" text="Customer ID" />
           <TableColumn fx:id="custNameColumn" prefWidth="168.0" text="Customer Name" />
@@ -34,7 +34,7 @@
                   <Insets left="20.0" right="20.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="custBackButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#switchMainrView" prefHeight="50.0" prefWidth="134.0" text="Back">
+            <Button fx:id="custBackButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#switchMainView" prefHeight="50.0" prefWidth="134.0" text="Back">
                <HBox.margin>
                   <Insets left="20.0" right="20.0" />
                </HBox.margin>
