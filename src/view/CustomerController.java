@@ -12,12 +12,17 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
 import model.Customer;
 import model.User;
 import model.Appointment;
+
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
+import java.util.Observable;
 import java.util.ResourceBundle;
 
 public class CustomerController implements Initializable {
@@ -53,6 +58,22 @@ public class CustomerController implements Initializable {
         custZipColumn.setCellValueFactory(new PropertyValueFactory<Customer, String>("cZip"));
         custCityColumn.setCellValueFactory(new PropertyValueFactory<Customer, String>("cCity"));
         custTableView.setItems(allCustomers);
+
+    }
+
+    // TEST FUNCTION:
+    // This function takes the selection from the table that you have, and retrieves the information from the selected row.
+    // FIND A WAY TO PASS THIS DATA TO THE NEXT SCENE!!!
+    public void getCustomerFromTable(javafx.event.ActionEvent actionEvent){
+        Customer customer = custTableView.getSelectionModel().getSelectedItem();
+        System.out.println(customer.toString());
+        System.out.println("Customer name: " + customer.getcName());
+        System.out.println("Customer ID: " + customer.getcID());
+        System.out.println("Customer address: " + customer.getcAddress());
+//        return customer;
+
+//        Person person = taview.getSelectionModel().getSelectedItem();
+//        System.out.println(person.getName());
     }
 
     // Used for the back button
@@ -69,6 +90,5 @@ public class CustomerController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
-
 
 }

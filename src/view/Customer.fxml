@@ -24,7 +24,7 @@
       </TableView>
       <HBox alignment="CENTER" layoutX="127.0" layoutY="608.0" prefHeight="78.0" prefWidth="570.0">
          <children>
-            <Button fx:id="custModifyBtn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="139.0" text="Modify Customer">
+            <Button fx:id="custModifyBtn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#getCustomerFromTable" prefHeight="50.0" prefWidth="139.0" text="Modify Customer">
                <HBox.margin>
                   <Insets left="20.0" right="20.0" />
                </HBox.margin>
