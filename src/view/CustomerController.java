@@ -12,20 +12,17 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
 import model.Customer;
-import model.User;
-import model.Appointment;
 
-import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Objects;
-import java.util.Observable;
 import java.util.ResourceBundle;
 
 public class CustomerController implements Initializable {
+
+    // Class variables
+    public Customer customer;
 
     // FXML controls
     @FXML private Button custBackButton;
@@ -64,17 +61,32 @@ public class CustomerController implements Initializable {
     // TEST FUNCTION:
     // This function takes the selection from the table that you have, and retrieves the information from the selected row.
     // FIND A WAY TO PASS THIS DATA TO THE NEXT SCENE!!!
-    public void getCustomerFromTable(javafx.event.ActionEvent actionEvent){
-        Customer customer = custTableView.getSelectionModel().getSelectedItem();
+    public void getCustomerFromTable(javafx.event.ActionEvent actionEvent) {
+        ModifyCustomerController modifyCustomerController;
+        customer = custTableView.getSelectionModel().getSelectedItem();
         System.out.println(customer.toString());
         System.out.println("Customer name: " + customer.getcName());
         System.out.println("Customer ID: " + customer.getcID());
         System.out.println("Customer address: " + customer.getcAddress());
-//        return customer;
+        ((Node) (actionEvent.getSource())).getScene().getWindow().hide();
+        Stage stage = new Stage();
+        Parent root;
+        Scene modifyCustomerScene = null;
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("ModifyCustomer.fxml"));
+            root = loader.load();
+            modifyCustomerScene = new Scene(root);
+            modifyCustomerController = loader.getController();
+            modifyCustomerController.setModifyCustomer(customer);
 
-//        Person person = taview.getSelectionModel().getSelectedItem();
-//        System.out.println(person.getName());
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        stage.setScene(modifyCustomerScene);
+        stage.show();
     }
+
 
     // Used for the back button
     public void switchMainView(javafx.event.ActionEvent actionEvent){
@@ -90,5 +102,7 @@ public class CustomerController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+
+    // Test to try passing customer data
 
 }

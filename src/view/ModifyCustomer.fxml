@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ModifyCustomerController">
+   <children>
+      <Label fx:id="testLabel" layoutX="244.0" layoutY="183.0" text="TEST Label">
+         <font>
+            <Font size="24.0" />
+         </font></Label>
+      <Button layoutX="259.0" layoutY="319.0" mnemonicParsing="false" onAction="#changeText" text="Change Text" />
+   </children>
+</AnchorPane>
