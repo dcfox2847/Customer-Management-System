@@ -89,3 +89,8 @@ User ID: 1 , User Name: test , Time: 2020-07-22T03:25:11.471-04:00[America/New_Y
 User ID: 1 , User Name: test , Time: 2020-07-22T03:26:25.150-04:00[America/New_York] , Login Successful:  True
 User ID: 1 , User Name: test , Time: 2020-07-22T03:29:43.158-04:00[America/New_York] , Login Successful:  True
 User ID: 1 , User Name: test , Time: 2020-07-22T03:31:34.278-04:00[America/New_York] , Login Successful:  True
+User ID: 1 , User Name: test , Time: 2020-07-23T01:38:39.712-04:00[America/New_York] , Login Successful:  True
+User ID: 0 , User Name: Invalid Login , Time: 2020-07-23T01:54:04.563-04:00[America/New_York] , Login Successful:  False
+User ID: 1 , User Name: test , Time: 2020-07-23T01:54:11.388-04:00[America/New_York] , Login Successful:  True
+User ID: 1 , User Name: test , Time: 2020-07-23T01:56:37.125-04:00[America/New_York] , Login Successful:  True
+User ID: 1 , User Name: test , Time: 2020-07-23T02:21:28.061-04:00[America/New_York] , Login Successful:  True

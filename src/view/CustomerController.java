@@ -64,6 +64,7 @@ public class CustomerController implements Initializable {
     public void getCustomerFromTable(javafx.event.ActionEvent actionEvent) {
         ModifyCustomerController modifyCustomerController;
         customer = custTableView.getSelectionModel().getSelectedItem();
+        ModifyCustomerController.modifyCustomer = customer;
         System.out.println(customer.toString());
         System.out.println("Customer name: " + customer.getcName());
         System.out.println("Customer ID: " + customer.getcID());
@@ -77,9 +78,6 @@ public class CustomerController implements Initializable {
             loader.setLocation(getClass().getResource("ModifyCustomer.fxml"));
             root = loader.load();
             modifyCustomerScene = new Scene(root);
-            modifyCustomerController = loader.getController();
-            modifyCustomerController.setModifyCustomer(customer);
-
         } catch (IOException ex) {
             ex.printStackTrace();
         }

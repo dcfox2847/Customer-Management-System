@@ -15,40 +15,20 @@ public class ModifyCustomerController implements Initializable {
    @FXML private Label testLabel;
 
    // Class variables
-    private Customer modifyCustomer;
-
-    // Getter and Setters for the customer variable
-    public Customer getModifyCustomer() {
-        return modifyCustomer;
-    }
-
-    public void setModifyCustomer(Customer modifyCustomer) {
-        this.modifyCustomer = modifyCustomer;
-    }
+    public static Customer modifyCustomer;
 
     // class constructor
     public ModifyCustomerController(){}
-
-    public ModifyCustomerController(Customer modifyCustomer) {
-        this.modifyCustomer = modifyCustomer;
-    }
 
     // Class functions and methods
     public void testDisplayData(){
         testLabel.setText("The Customers name is: " + modifyCustomer.getcName());
     }
 
-    public void changeText(){
-        testDisplayData();
-        System.out.println(modifyCustomer.toString());
-        System.out.println(modifyCustomer.getcName());
-    }
-
-
     // Initialize method
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-//        System.out.println("From in the MODIFY CONTROLLER: " + modifyCustomer.getcName());
-//        testDisplayData();
+        System.out.println("From in the MODIFY CONTROLLER: " + modifyCustomer.getcName());
+        testDisplayData();
     }
 }
