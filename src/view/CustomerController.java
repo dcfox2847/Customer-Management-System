@@ -104,6 +104,22 @@ public class CustomerController implements Initializable {
 
     }
 
+    // Switch to the ADD CUSTOMER screen
+    public void switchAddCustomerView(javafx.event.ActionEvent actionEvent){
+        custTableView.getItems().clear();
+        ((Node) (actionEvent.getSource())).getScene().getWindow().hide();
+        Stage stage = new Stage();
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("AddCustomer.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
     // Test to try passing customer data
 
 }

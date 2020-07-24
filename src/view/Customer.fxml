@@ -29,7 +29,7 @@
                   <Insets left="20.0" right="20.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="custAddBtn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="135.0" text="Add Customer">
+            <Button fx:id="custAddBtn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#switchAddCustomerView" prefHeight="50.0" prefWidth="135.0" text="Add Customer">
                <HBox.margin>
                   <Insets left="20.0" right="20.0" />
                </HBox.margin>

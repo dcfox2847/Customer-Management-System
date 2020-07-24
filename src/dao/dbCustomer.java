@@ -11,7 +11,11 @@ import static dao.dbConnection.stmt;
 public class dbCustomer {
 
     // Variables for use in storing customer data (the data structures)
+
     private static ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
+    private static ObservableList<String> allCities = FXCollections.observableArrayList();
+
+    private static int addressCount;
 
     // Methods used for retrieving customer data
     // Returns a single customer
@@ -56,14 +60,25 @@ public class dbCustomer {
         }
     }
 
+
+
     // Create new customer record
+    //TODO : FIX THE SAVE CUSTOMER METHOD!!!!!
+    //TODO: USE THE 'ADDRESSCOUNT' VARIABLE TO CHECK THE AMOUNT OF ADDRESSES IN THE DATABASE
+    //TODO: THE NEWLY ADDED ADDRESS WILL HAVE AN NEW ADDRESS ID
+    //TODO: AFTER VERIFYING CITY, ADD THE CUSTOMER INFORMATION INTO THE CUSTOMER TABLE!!!!!!
     public static boolean saveCustomer(String name, String address, int cityId, String zip, String phone) {
         try {
+            // This is your test string to check to see if the city id exists in the address database already.
+            ResultSet resultSet = stmt.executeQuery("SELECT COUNT(*) AS total FROM address");
+            while(resultSet.next()){
+                addressCount = resultSet.getInt("total");
+            }
             String queryOne = "INSERT INTO address SET address='" + address + "',address2='', phone='" + phone + "', createDate=NOW(), "
                     + "createdBy=' ', lastUpdate=NOW(), lastUpdateBy=' ', postalCode='" + zip + "', cityId=" + cityId;
             int updateOne = stmt.executeUpdate(queryOne);
             if(updateOne == 1) {
-                int addressId = allCustomers.size() + 1;
+                int addressId = addressCount + 1;
                 String queryTwo = "INSERT INTO customer SET customerName='" + name + "', addressId=" + addressId + ", active= 1, "
                         + "createDate=NOW(), createdBy=' ', lastUpdate=NOW(), lastUpdateBy=' '";
                 int updateTwo = stmt.executeUpdate(queryTwo);
@@ -76,6 +91,9 @@ public class dbCustomer {
         }
         return false;
     }
+
+
+
 
     // Updates customer record
     public static boolean updateCustomer(int id, String name, String address, int cityId, String zip, String phone) {
@@ -112,6 +130,22 @@ public class dbCustomer {
             System.out.println("SQLException: " + e.getMessage());
         }
         return false;
+    }
+
+    // Return list of cities
+    public static ObservableList<String> getAllCities(){
+        String allCityQuery = "SELECT city FROM city";
+        try{
+            ResultSet rs = stmt.executeQuery(allCityQuery);
+            while (rs.next()){
+                allCities.add(rs.getString("city"));
+            }
+            System.out.println("You have " + allCities.size() + " cities returned.");
+            return allCities;
+        }catch (SQLException e){
+            System.out.println("SQLException: " + e.getMessage());
+            return null;
+        }
     }
 
 }
