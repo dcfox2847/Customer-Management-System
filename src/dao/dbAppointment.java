@@ -103,7 +103,7 @@ public class dbAppointment {
 
     // Function to return any appointmens scheduled within the next 15 minutes.
 
-    public static ObservableList<Appointment> get15MinuteApt(){
+    public static ObservableList<Appointment> get15MinuteApt(int id){
         ObservableList<Appointment> apt15Minutes = FXCollections.observableArrayList();
         Appointment apt;
         Alert alert15Minutes = new Alert(Alert.AlertType.INFORMATION);
@@ -116,7 +116,7 @@ public class dbAppointment {
         LocalDateTime localDateTime1 = localDateTime.plusMinutes(15);
         user = dbUser.getCurrentUser().getUserName();
         try{
-            String fifteenMinQuery =  "SELECT * FROM appointment WHERE start BETWEEN '" + localDateTime + "' AND '" + localDateTime1 + "' AND " +
+            String fifteenMinQuery =  "SELECT * FROM appointment WHERE userID = '" + id + "' AND start BETWEEN '" + localDateTime + "' AND '" + localDateTime1 + "' AND " +
                     "contact='" + user + "'";
             ResultSet resultSet = stmt.executeQuery(fifteenMinQuery);
             if(resultSet.next()){
@@ -125,6 +125,7 @@ public class dbAppointment {
                         resultSet.getString("description"), resultSet.getString("location"), resultSet.getString("contact"));
                 apt15Minutes.add(apt);
                 alert15Minutes.setContentText("You have an appointment with " + apt.getaCustName() + " at " + apt.getaStartTime());
+                alert15Minutes.show();
             }
         }catch (SQLException ex){
             System.out.println("SQLException (in the 15 minutes function): " + ex.getMessage());

@@ -8,6 +8,7 @@ public class Customer {
     private final SimpleIntegerProperty cID = new SimpleIntegerProperty();
     private final SimpleStringProperty cName = new SimpleStringProperty();
     private final SimpleStringProperty cAddress = new SimpleStringProperty();
+    private final SimpleIntegerProperty cCityID = new SimpleIntegerProperty();
     private final SimpleStringProperty cCity = new SimpleStringProperty();
     private final SimpleStringProperty cZip = new SimpleStringProperty();
     private final SimpleStringProperty cPhone = new SimpleStringProperty();
@@ -21,11 +22,12 @@ public class Customer {
         setcName(name);
     };
 
-    public Customer (int id, String name, String address, String city, String zip, String phone){
+    public Customer (int id, String name, String address, String city, int cityID, String zip, String phone){
         setcID(id);
         setcName(name);
         setcAddress(address);
         setcCity(city);
+        setcCityID(cityID);
         setcZip(zip);
         setcPhone(phone);
     }
@@ -104,4 +106,10 @@ public class Customer {
     public void setcPhone(String cPhone) {
         this.cPhone.set(cPhone);
     }
+
+    public int getcCityID() { return cCityID.get(); }
+
+    public SimpleIntegerProperty cCityIDProperty() { return cCityID; }
+
+    public void setcCityID(int cCityID) { this.cCityID.set(cCityID); }
 }

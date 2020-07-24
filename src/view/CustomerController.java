@@ -69,6 +69,7 @@ public class CustomerController implements Initializable {
         System.out.println("Customer name: " + customer.getcName());
         System.out.println("Customer ID: " + customer.getcID());
         System.out.println("Customer address: " + customer.getcAddress());
+        custTableView.getItems().clear();
         ((Node) (actionEvent.getSource())).getScene().getWindow().hide();
         Stage stage = new Stage();
         Parent root;
@@ -88,6 +89,7 @@ public class CustomerController implements Initializable {
 
     // Used for the back button
     public void switchMainView(javafx.event.ActionEvent actionEvent){
+        custTableView.getItems().clear();
         ((Node) (actionEvent.getSource())).getScene().getWindow().hide();
         Stage stage = new Stage();
         Parent root = null;
@@ -99,6 +101,7 @@ public class CustomerController implements Initializable {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+
     }
 
     // Test to try passing customer data

@@ -33,7 +33,7 @@ public class dbCustomer {
     // Returns all Customers in Database
     public static ObservableList<Customer> getAllCustomers() {
         try {
-            String allCustQuery = "SELECT customer.customerId, customer.customerName, address.address, address.phone, address.postalCode, city.city"
+            String allCustQuery = "SELECT customer.customerId, customer.customerName, address.address, address.phone, address.postalCode, city.city, city.cityId"
                     + " FROM customer INNER JOIN address ON customer.addressId = address.addressId "
                     + "INNER JOIN city ON address.cityId = city.cityId";
             ResultSet results = stmt.executeQuery(allCustQuery);
@@ -43,6 +43,7 @@ public class dbCustomer {
                         results.getString("customerName"),
                         results.getString("address"),
                         results.getString("city"),
+                        results.getInt("cityID"),
                         results.getString("postalCode"),
                         results.getString("phone"));
                 allCustomers.add(customer);

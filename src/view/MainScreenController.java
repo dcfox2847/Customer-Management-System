@@ -17,6 +17,8 @@ import javafx.stage.*;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -55,7 +57,7 @@ public class MainScreenController implements Initializable {
 
 
     // Class Initialization
-    // TODO: YOU NEED TO ADD THE CUSTOMER DATA (CUSTOMER ID AND CUSTOMER NAME) INTO THE APPOINTMENT TABLE!!!
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Setting up of the radio buttons
@@ -74,7 +76,11 @@ public class MainScreenController implements Initializable {
             }
         });
 
-        appointmentFifteen = dbAppointment.get15MinuteApt();
+        appointmentFifteen = dao.dbAppointment.get15MinuteApt(LoginController.currUser.getUserID());
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date = new Date();
+        System.out.println("Current date and time " + formatter.format(date));
+        System.out.println("Appointments in 15 minutes: " + appointmentFifteen.size());
         if(appointmentFifteen.size() != 0){
             for(Appointment item : appointmentFifteen){
                 alert15Minutes.setTitle("Upcoming Appointment");
