@@ -16,6 +16,7 @@ public class dbCustomer {
     private static ObservableList<String> allCities = FXCollections.observableArrayList();
 
     private static int addressCount;
+    private static int addressId;
 
     // Methods used for retrieving customer data
     // Returns a single customer
@@ -98,6 +99,10 @@ public class dbCustomer {
     // Updates customer record
     public static boolean updateCustomer(int id, String name, String address, int cityId, String zip, String phone) {
         try {
+            ResultSet rs1 = stmt.executeQuery("SELECT addressId FROM customer where customerId='" + id + "'");
+            while(rs1.next()){
+                addressId = rs1.getInt("addressId");
+            }
             String queryOne = "UPDATE address SET address='" + address + "', cityId=" + cityId + ", postalCode='" + zip + "', phone='" + phone + "' "
                     + "WHERE addressId=" + id;
             int updateOne = stmt.executeUpdate(queryOne);

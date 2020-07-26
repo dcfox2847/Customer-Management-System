@@ -1,5 +1,7 @@
 package view;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -22,8 +24,7 @@ public class ModifyCustomerController implements Initializable {
    @FXML private TextField idTextField;
    @FXML private TextField nameTextField;
    @FXML private TextField addressTextField;
-   @FXML private TextField cityIdTextField;
-   @FXML private TextField cityTextField;
+   @FXML private ComboBox<String> cityComboBox;
    @FXML private TextField zipTextField;
    @FXML private TextField phoneTextField;
    @FXML private Button saveButton;
@@ -31,6 +32,7 @@ public class ModifyCustomerController implements Initializable {
 
    // Class variables
     public static Customer modifyCustomer;
+    private ObservableList<String> comboCities = FXCollections.observableArrayList();
 
     // class constructor
     public ModifyCustomerController(){}
@@ -54,7 +56,7 @@ public class ModifyCustomerController implements Initializable {
 
     // Update the customer information using textfield information
     public void updateCustomer(){
-        dao.dbCustomer.updateCustomer(Integer.parseInt(idTextField.getText()), nameTextField.getText(), addressTextField.getText(), Integer.parseInt(cityIdTextField.getText()),
+        dao.dbCustomer.updateCustomer(Integer.parseInt(idTextField.getText()), nameTextField.getText(), addressTextField.getText(), cityComboBox.getSelectionModel().getSelectedIndex()+1,
                 zipTextField.getText(), phoneTextField.getText());
     }
 
@@ -68,8 +70,8 @@ public class ModifyCustomerController implements Initializable {
         idTextField.setDisable(true);
         nameTextField.setText(modifyCustomer.getcName());
         addressTextField.setText(modifyCustomer.getcAddress());
-        cityIdTextField.setText(Integer.toString(modifyCustomer.getcCityID()));
-        cityTextField.setText(modifyCustomer.getcCity());
+        comboCities = dao.dbCustomer.getAllCities();
+        cityComboBox.setItems(comboCities);
         zipTextField.setText(modifyCustomer.getcZip());
         phoneTextField.setText(modifyCustomer.getcPhone());
     }

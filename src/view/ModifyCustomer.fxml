@@ -36,21 +36,13 @@
                      <font>
                         <Font size="14.0" />
                      </font></Label>
-                  <Label text="City ID">
+                  <Label text="City">
                      <VBox.margin>
                         <Insets bottom="20.0" top="15.0" />
                      </VBox.margin>
                      <font>
                         <Font size="14.0" />
                      </font></Label>
-                  <Label text="City">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets bottom="20.0" top="15.0" />
-                     </VBox.margin>
-                  </Label>
                   <Label text="Zip Code">
                      <VBox.margin>
                         <Insets bottom="20.0" top="15.0" />
@@ -86,15 +78,11 @@
                         <Insets bottom="10.0" top="20.0" />
                      </VBox.margin>
                   </TextField>
-                  <TextField fx:id="cityIdTextField">
+                  <ComboBox fx:id="cityComboBox" prefWidth="150.0">
                      <VBox.margin>
                         <Insets bottom="10.0" top="20.0" />
                      </VBox.margin>
-                  </TextField>
-                  <TextField fx:id="cityTextField">
-                     <VBox.margin>
-                        <Insets bottom="10.0" top="20.0" />
-                     </VBox.margin></TextField>
+                  </ComboBox>
                   <TextField fx:id="zipTextField">
                      <VBox.margin>
                         <Insets bottom="10.0" top="20.0" />
