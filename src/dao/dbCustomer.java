@@ -15,8 +15,8 @@ public class dbCustomer {
     private static ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
     private static ObservableList<String> allCities = FXCollections.observableArrayList();
 
-    private static int addressCount;
-    private static int addressId;
+    public static int addressCount;
+    public static int addressId;
 
     // Methods used for retrieving customer data
     // Returns a single customer

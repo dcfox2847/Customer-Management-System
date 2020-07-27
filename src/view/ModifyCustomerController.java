@@ -1,5 +1,6 @@
 package view;
 
+import dao.dbCustomer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -39,8 +40,13 @@ public class ModifyCustomerController implements Initializable {
 
     //Class Functions and Methods
 
+    public void clearList(){
+        comboCities.clear();
+    }
+
     // Return to the ModifyCustomer page
     public void switchMainView(javafx.event.ActionEvent actionEvent){
+        clearList();
         ((Node) (actionEvent.getSource())).getScene().getWindow().hide();
         Stage stage = new Stage();
         Parent root = null;

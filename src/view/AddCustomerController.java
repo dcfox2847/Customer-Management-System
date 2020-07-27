@@ -40,6 +40,10 @@ public class AddCustomerController implements Initializable {
 
     // Class functions and methods
 
+    public void clearList(){
+        comboCities.clear();
+    }
+
     // Add customer to DB
     public void addCustomer(){
         dao.dbCustomer.saveCustomer(nameTextField.getText(),addressTextField.getText(),
@@ -48,6 +52,7 @@ public class AddCustomerController implements Initializable {
 
     // Return to the ModifyCustomer page
     public void switchMainView(javafx.event.ActionEvent actionEvent){
+        clearList();
         ((Node) (actionEvent.getSource())).getScene().getWindow().hide();
         Stage stage = new Stage();
         Parent root = null;
