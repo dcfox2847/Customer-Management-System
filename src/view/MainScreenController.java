@@ -46,6 +46,8 @@ public class MainScreenController implements Initializable {
     ObservableList<Appointment> appointmentMonth = FXCollections.observableArrayList();
     ObservableList<Appointment> appointmentWeek = FXCollections.observableArrayList();
 
+    public Appointment appointment;
+
     private User currentUser = LoginController.currUser;
     Alert alert15Minutes = new Alert(Alert.AlertType.INFORMATION);
 
@@ -138,6 +140,20 @@ public class MainScreenController implements Initializable {
         Parent root = null;
         try {
             root = FXMLLoader.load(getClass().getResource("Customer.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void switchAddAppointmentView(javafx.event.ActionEvent actionEvent){
+        ((Node) (actionEvent.getSource())).getScene().getWindow().hide();
+        Stage stage = new Stage();
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("AddAppointment.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }

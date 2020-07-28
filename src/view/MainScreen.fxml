@@ -29,7 +29,7 @@
                   <Insets left="10.0" right="10.0" />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="135.0" text="Add Appointment">
+            <Button mnemonicParsing="false" onAction="#switchAddAppointmentView" prefHeight="60.0" prefWidth="135.0" text="Add Appointment">
                <HBox.margin>
                   <Insets left="10.0" right="10.0" />
                </HBox.margin>

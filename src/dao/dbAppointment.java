@@ -17,6 +17,14 @@ public class dbAppointment {
 
     private static String user;
 
+    // Class Functions and methods
+
+    // TODO: Finish this conversion function
+    // Function to create a SQL DB readable time stamp
+    public static String convertTimeStamp(String date, String time, String location, boolean startMode){
+        return null;
+    }
+
     // Function to get all users appointments for the month
 
     public static ObservableList<Appointment> getMonthlyApt(int id) {
@@ -132,21 +140,28 @@ public class dbAppointment {
             return null;
         }
         // Testing
-        for(Appointment item : apt15Minutes) {
-            try {
-                ResultSet fifteenMinResultSet = stmt.executeQuery("SELECT * FROM customer WHERE customerId ='" + item.getaCustID() + "'");
-                while (fifteenMinResultSet.next()){
-                    if(fifteenMinResultSet.getInt("customerId") == item.getaCustID()){
-                        item.setaCustName(fifteenMinResultSet.getString("customerName"));
-                    }
-                }
-            } catch(SQLException ex){
-                System.out.println("15 min sql exception: " + ex.getMessage());
-            }
-        }
+//        for(Appointment item : apt15Minutes) {
+//            try {
+//                ResultSet fifteenMinResultSet = stmt.executeQuery("SELECT * FROM customer WHERE customerId ='" + item.getaCustID() + "'");
+//                while (fifteenMinResultSet.next()){
+//                    if(fifteenMinResultSet.getInt("customerId") == item.getaCustID()){
+//                        item.setaCustName(fifteenMinResultSet.getString("customerName"));
+//                    }
+//                }
+//            } catch(SQLException ex){
+//                System.out.println("15 min sql exception: " + ex.getMessage());
+//            }
+//        }
         // End Testing
         return apt15Minutes;
     }
+
+
+    // TODO: MAKE THE FUNCTION BELOW TO SAVE DATA INTO THE DATABASE.
+//    // Function to create a new appointment entry in the database
+//    public static boolean addAppointment( int id, String type, String contact, String location, String date, String time){
+//
+//    }
 
 
 
