@@ -43,7 +43,7 @@ public class LoginController implements Initializable {
     String password = "";
     Alert loginAlert = new Alert(Alert.AlertType.INFORMATION);
     ResourceBundle rb;
-    static model.User currUser;
+    public static model.User currUser;
 
 
     @Override

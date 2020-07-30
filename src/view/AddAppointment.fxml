@@ -19,23 +19,40 @@
                   <Label text="Type of Appointment">
                      <VBox.margin>
                         <Insets bottom="25.0" top="25.0" />
-                     </VBox.margin></Label>
+                     </VBox.margin>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Label>
                   <Label text="Contact Name">
                      <VBox.margin>
                         <Insets bottom="25.0" top="25.0" />
-                     </VBox.margin></Label>
+                     </VBox.margin>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Label>
                   <Label text="Location">
                      <VBox.margin>
                         <Insets bottom="25.0" top="25.0" />
-                     </VBox.margin></Label>
+                     </VBox.margin>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Label>
                   <Label text="Date">
                      <VBox.margin>
                         <Insets bottom="25.0" top="25.0" />
-                     </VBox.margin></Label>
+                     </VBox.margin>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Label>
                   <Label text="Time">
                      <VBox.margin>
-                        <Insets bottom="25.0" top="25.0" />
-                     </VBox.margin></Label>
+                        <Insets bottom="5.0" top="25.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Label>
+                  <Label text="Please enter your time in a 24 hour format. " />
+                  <Label text="Ex. 1:00 PM = '13:00:00' (HH:mm:ss)" />
                </children>
             </VBox>
             <VBox alignment="CENTER" prefHeight="389.0" prefWidth="339.0">
@@ -68,7 +85,7 @@
                </children></VBox>
          </children>
       </HBox>
-      <Button fx:id="addAppointmentButton" layoutX="669.0" layoutY="144.0" mnemonicParsing="false" prefHeight="67.0" prefWidth="113.0" text="Add Appointment" />
+      <Button fx:id="addAppointmentButton" layoutX="669.0" layoutY="144.0" mnemonicParsing="false" onAction="#addButtonClicked" prefHeight="67.0" prefWidth="113.0" text="Add Appointment" />
       <Button fx:id="backButton" layoutX="667.0" layoutY="251.0" mnemonicParsing="false" onAction="#backButtonView" prefHeight="67.0" prefWidth="113.0" text="Back" />
    </children>
 </AnchorPane>

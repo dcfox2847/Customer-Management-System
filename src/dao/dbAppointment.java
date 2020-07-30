@@ -2,6 +2,7 @@ package dao;
 
 import java.sql.*;
 import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 import javafx.collections.*;
@@ -10,6 +11,7 @@ import javafx.scene.control.Alert;
 import model.Appointment;
 import model.Customer;
 import model.User;
+import view.LoginController;
 
 import static dao.dbConnection.stmt;
 
@@ -139,31 +141,43 @@ public class dbAppointment {
             System.out.println("SQLException (in the 15 minutes function): " + ex.getMessage());
             return null;
         }
-        // Testing
-//        for(Appointment item : apt15Minutes) {
-//            try {
-//                ResultSet fifteenMinResultSet = stmt.executeQuery("SELECT * FROM customer WHERE customerId ='" + item.getaCustID() + "'");
-//                while (fifteenMinResultSet.next()){
-//                    if(fifteenMinResultSet.getInt("customerId") == item.getaCustID()){
-//                        item.setaCustName(fifteenMinResultSet.getString("customerName"));
-//                    }
-//                }
-//            } catch(SQLException ex){
-//                System.out.println("15 min sql exception: " + ex.getMessage());
-//            }
-//        }
-        // End Testing
         return apt15Minutes;
+    }
+
+    // Function to change time to UTC
+    public static LocalDateTime changeToUtc(String stringTime){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime time = LocalDateTime.parse(stringTime, formatter);
+        LocalDateTime zuluTime = time.atZone(ZoneId.systemDefault()).withZoneSameInstant(ZoneId.of("UTC")).toLocalDateTime();
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formatZulu = zuluTime.format(dtf);
+        LocalDateTime convertedZulu = LocalDateTime.parse(formatZulu, dtf);
+        System.out.println("Final formatted UTC time for the DB: " + convertedZulu);
+        return zuluTime;
     }
 
 
     // TODO: MAKE THE FUNCTION BELOW TO SAVE DATA INTO THE DATABASE.
-//    // Function to create a new appointment entry in the database
-//    public static boolean addAppointment( int id, String type, String contact, String location, String date, String time){
-//
-//    }
+    // Function to create a new appointment entry in the database
+    // Arguments to replace -> (  int id, String type, String contact, String location, String date, String time  )
+    public static boolean addAppointment(int id, String type, String contact, String location, String date, String time){
+        String preConvertedString = date + " " + time;
+        LocalDateTime dateTimeString = changeToUtc(preConvertedString);
+        try{
+            String query = "INSERT INTO appointment SET customerId='" + id + "', userId='" + LoginController.currUser.getUserID() + "', title='" + type +
+                    "', description='" + type + "', location='" + location + "', contact='" + contact + "', type='" + type + "', url='', start='" + preConvertedString +
+                    "', end='" + preConvertedString + "', createDate=NOW(), createdBy='test', lastUpdateBy='tester'";
+            int added = stmt.executeUpdate(query);
+            if(added == 1){
+                System.out.println("Appointment added: " + added);
+                return true;
+            }
 
-
+        } catch (SQLException ex){
+            System.out.println("SQLException: " +  ex.getMessage());
+        }
+        return false;
+    }
 
 
     // Functions for CRUD interactions for the modifying or adding of appointmens to go below here.
