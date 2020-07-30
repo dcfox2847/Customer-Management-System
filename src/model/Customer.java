@@ -13,6 +13,13 @@ public class Customer {
     private final SimpleStringProperty cZip = new SimpleStringProperty();
     private final SimpleStringProperty cPhone = new SimpleStringProperty();
 
+    // Overridden methods
+
+    @Override
+    public String toString(){
+        return(getcName());
+    }
+
     // Class Constructors
 
     public Customer () {};

@@ -12,8 +12,8 @@ public class dbCustomer {
 
     // Variables for use in storing customer data (the data structures)
 
-    private static ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
-    private static ObservableList<String> allCities = FXCollections.observableArrayList();
+    public static ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
+    public static ObservableList<String> allCities = FXCollections.observableArrayList();
 
     public static int addressCount;
     public static int addressId;

@@ -160,12 +160,12 @@ public class dbAppointment {
     // TODO: MAKE THE FUNCTION BELOW TO SAVE DATA INTO THE DATABASE.
     // Function to create a new appointment entry in the database
     // Arguments to replace -> (  int id, String type, String contact, String location, String date, String time  )
-    public static boolean addAppointment(int id, String type, String contact, String location, String date, String time){
+    public static boolean addAppointment(int id, String type, String description, String contact, String location, String date, String time){
         String preConvertedString = date + " " + time;
         LocalDateTime dateTimeString = changeToUtc(preConvertedString);
         try{
             String query = "INSERT INTO appointment SET customerId='" + id + "', userId='" + LoginController.currUser.getUserID() + "', title='" + type +
-                    "', description='" + type + "', location='" + location + "', contact='" + contact + "', type='" + type + "', url='', start='" + preConvertedString +
+                    "', description='" + description + "', location='" + location + "', contact='" + contact + "', type='" + type + "', url='', start='" + preConvertedString +
                     "', end='" + preConvertedString + "', createDate=NOW(), createdBy='test', lastUpdateBy='tester'";
             int added = stmt.executeUpdate(query);
             if(added == 1){

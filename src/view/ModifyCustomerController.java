@@ -82,10 +82,4 @@ public class ModifyCustomerController implements Initializable {
         phoneTextField.setText(modifyCustomer.getcPhone());
     }
 
-    // TESTING
-    // Class functions and methods
-//    public void testDisplayData(){
-//        testLabel.setText("The Customers name is: " + modifyCustomer.getcName());
-//    }
-
 }

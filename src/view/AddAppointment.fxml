@@ -16,37 +16,52 @@
          <children>
             <VBox alignment="CENTER" prefHeight="389.0" prefWidth="318.0">
                <children>
+                  <Label text="Customer">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin></Label>
                   <Label text="Type of Appointment">
                      <VBox.margin>
-                        <Insets bottom="25.0" top="25.0" />
+                        <Insets bottom="20.0" top="20.0" />
                      </VBox.margin>
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font></Label>
+                  <Label text="Description of Appointment">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="20.0" top="20.0" />
+                     </VBox.margin>
+                  </Label>
                   <Label text="Contact Name">
                      <VBox.margin>
-                        <Insets bottom="25.0" top="25.0" />
+                        <Insets bottom="20.0" top="20.0" />
                      </VBox.margin>
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font></Label>
                   <Label text="Location">
                      <VBox.margin>
-                        <Insets bottom="25.0" top="25.0" />
+                        <Insets bottom="20.0" top="20.0" />
                      </VBox.margin>
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font></Label>
                   <Label text="Date">
                      <VBox.margin>
-                        <Insets bottom="25.0" top="25.0" />
+                        <Insets bottom="20.0" top="20.0" />
                      </VBox.margin>
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font></Label>
                   <Label text="Time">
                      <VBox.margin>
-                        <Insets bottom="5.0" top="25.0" />
+                        <Insets bottom="5.0" top="20.0" />
                      </VBox.margin>
                      <font>
                         <Font name="System Bold" size="12.0" />
@@ -57,29 +72,35 @@
             </VBox>
             <VBox alignment="CENTER" prefHeight="389.0" prefWidth="339.0">
                <children>
+                  <ComboBox fx:id="customerComboBox" prefWidth="150.0" />
                   <TextField fx:id="typeField">
+                     <VBox.margin>
+                        <Insets bottom="10.0" top="20.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <TextField fx:id="descriptionField">
                      <VBox.margin>
                         <Insets bottom="20.0" top="20.0" />
                      </VBox.margin>
                   </TextField>
                   <TextField fx:id="contactField">
                      <VBox.margin>
-                        <Insets bottom="20.0" top="20.0" />
+                        <Insets bottom="20.0" top="10.0" />
                      </VBox.margin>
                   </TextField>
                   <TextField fx:id="locationField">
                      <VBox.margin>
-                        <Insets bottom="20.0" top="20.0" />
+                        <Insets bottom="20.0" top="10.0" />
                      </VBox.margin>
                   </TextField>
                   <DatePicker fx:id="datePicker">
                      <VBox.margin>
-                        <Insets bottom="20.0" top="20.0" />
+                        <Insets bottom="15.0" top="15.0" />
                      </VBox.margin>
                   </DatePicker>
                   <TextField fx:id="timeField">
                      <VBox.margin>
-                        <Insets bottom="20.0" top="20.0" />
+                        <Insets bottom="20.0" top="10.0" />
                      </VBox.margin>
                   </TextField>
                </children></VBox>
