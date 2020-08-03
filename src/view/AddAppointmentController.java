@@ -99,6 +99,18 @@ public class AddAppointmentController implements Initializable {
         Customer cust = customerComboBox.getValue();
         if(getTime(timeField.getText())){
             dao.dbAppointment.addAppointment(cust.getcID(), typeField.getText(), descriptionField.getText(), contactField.getText(), locationField.getText(), getDate(), timeField.getText());
+            Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+            a.setTitle("Entry added");
+            a.setHeaderText("Entry added");
+            a.setContentText("Appointment added successfully");
+            a.showAndWait();
+            typeField.setText("");
+            descriptionField.setText("");
+            contactField.setText("");
+            locationField.setText("");
+            timeField.setText("");
+            customerComboBox.getSelectionModel().clearSelection();
+            datePicker.setValue(null);
         }else{
             Alert a = new Alert(Alert.AlertType.ERROR);
             a.setTitle("Time Entry Error");
