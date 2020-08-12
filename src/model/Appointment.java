@@ -35,17 +35,6 @@ public class Appointment {
 
     }
 
-//    public Appointment(int id, String custName, String start, String end, String title, String description, String location, String contact){
-//        setaID(id);
-//        setaCustName(custName);
-//        setaStartTime(start);
-//        setaEndTime(end);
-//        setaTitle(title);
-//        setaDesc(description);
-//        setaLocation(location);
-//        setaContact(contact);
-//
-//    }
 
     // Getter and Setter methods
     public int getaID() {
@@ -147,7 +136,7 @@ public class Appointment {
     // Additional methods for date and time formatting
 
     public StringProperty getaStart(){
-        DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime ldt = LocalDateTime.parse(this.aStartTime.getValue(), df);
         ZonedDateTime zdt = ldt.atZone(ZoneId.of("UTC"));
         ZoneId zid = ZoneId.systemDefault();
@@ -156,14 +145,26 @@ public class Appointment {
         return date;
     }
 
-    public StringProperty getaEnd(){
-        DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
-        LocalDateTime ldt = LocalDateTime.parse(this.aEndTime.getValue(), df);
+    public StringProperty getaDateOnly(){
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime ldt = LocalDateTime.parse(this.aStartTime.getValue(), df);
         ZonedDateTime zdt = ldt.atZone(ZoneId.of("UTC"));
         ZoneId zid = ZoneId.systemDefault();
         ZonedDateTime utcDate = zdt.withZoneSameInstant(zid);
         StringProperty date = new SimpleStringProperty(utcDate.toLocalDateTime().toString());
         return date;
+    }
+
+    public String getaEnd(){
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime ldt = LocalDateTime.parse(this.aEndTime.getValue(), df);
+        ZonedDateTime zdt = ldt.atZone(ZoneId.of("UTC"));
+        ZoneId zid = ZoneId.systemDefault();
+        ZonedDateTime utcDate = zdt.withZoneSameInstant(zid);
+        StringProperty date = new SimpleStringProperty(utcDate.toLocalDateTime().toString());
+        String newDate = date.get();
+        String formatDate = newDate.substring(0,10);
+        return formatDate;
     }
 
     public LocalDate getDateOnly() {

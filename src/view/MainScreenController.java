@@ -161,4 +161,26 @@ public class MainScreenController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+
+    public void switchModifyAppointmentView(javafx.event.ActionEvent actionEvent){
+        appointment = aptTableView.getSelectionModel().getSelectedItem();
+        ModifyAppointmentController.modifyAppointment = appointment;
+        System.out.println(appointment.toString());
+        aptTableView.getItems().clear();
+        ((Node) (actionEvent.getSource())).getScene().getWindow().hide();
+        Stage stage = new Stage();
+        Parent root;
+        Scene modifyAppointmentScene = null;
+        try{
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("ModifyAppointment.fxml"));
+            root = loader.load();
+            modifyAppointmentScene = new Scene(root);
+        }catch (IOException ex){
+            ex.printStackTrace();
+        }
+        stage.setScene(modifyAppointmentScene);
+        stage.show();
+    }
+
 }

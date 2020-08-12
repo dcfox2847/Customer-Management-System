@@ -62,7 +62,6 @@ public class CustomerController implements Initializable {
     // This function takes the selection from the table that you have, and retrieves the information from the selected row.
     // FIND A WAY TO PASS THIS DATA TO THE NEXT SCENE!!!
     public void getCustomerFromTable(javafx.event.ActionEvent actionEvent) {
-        ModifyCustomerController modifyCustomerController;
         customer = custTableView.getSelectionModel().getSelectedItem();
         ModifyCustomerController.modifyCustomer = customer;
         System.out.println(customer.toString());

@@ -67,7 +67,6 @@ public class ModifyCustomerController implements Initializable {
     }
 
 
-
     // Initialize method
     @Override
     public void initialize(URL location, ResourceBundle resources) {

@@ -24,7 +24,7 @@
                   <Insets left="10.0" right="10.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="aptButton" mnemonicParsing="false" prefHeight="60.0" prefWidth="135.0" text="Modify Appointment">
+            <Button fx:id="aptButton" mnemonicParsing="false" onAction="#switchModifyAppointmentView" prefHeight="60.0" prefWidth="135.0" text="Modify Appointment">
                <HBox.margin>
                   <Insets left="10.0" right="10.0" />
                </HBox.margin>
