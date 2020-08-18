@@ -6,12 +6,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.util.StringConverter;
 import model.Appointment;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class ModifyAppointmentController implements Initializable {
@@ -34,13 +36,18 @@ public class ModifyAppointmentController implements Initializable {
     public ModifyAppointmentController() { }
 
     // Class Methods and Functions
+
+    // This is a function built purely for testing the values going into and out of the Appointment object
     public void testObject(){
         System.out.println("ID: " + modifyAppointment.getaID());
         System.out.println("Date: " + modifyAppointment.getaStartTime());
         LocalDate date = modifyAppointment.getDateOnly();
         String textDate = date.toString();
-        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-
+        System.out.println("Formatted from SQL: " + textDate);
+//        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM-dd-yyyy", Locale.US);
+//        LocalDate formattedTextDate = LocalDate.parse(textDate, dtf);
+//        System.out.println("Formatted for Java: " + formattedTextDate);
+        appointmentDatePicker.setValue(LocalDate.parse(textDate));
 
     }
 
@@ -48,6 +55,32 @@ public class ModifyAppointmentController implements Initializable {
     // Initialize method
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        appointmentDatePicker.setConverter(
+                new StringConverter<LocalDate>() {
+
+                    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+                    @Override
+                    public String toString(LocalDate object) {
+                        return (object != null) ? dateTimeFormatter.format(object) : "";
+                    }
+
+                    @Override
+                    public LocalDate fromString(String string) {
+                        return (string != null && !string.isEmpty())
+                                ? LocalDate.parse(string, dateTimeFormatter)
+                        : null;
+                    }
+                }
+        );
+        idTextField.setText(Integer.toString(modifyAppointment.getaID()));
+        typeTextField.setText(modifyAppointment.getaTitle());
+        contactTextField.setText(modifyAppointment.getaContact());
+        locationTextField.setText(modifyAppointment.getaLocation());
+        LocalDate date = modifyAppointment.getDateOnly();
+        String textDate = date.toString();
+        appointmentDatePicker.setValue(LocalDate.parse(textDate));
+        timeTextField.setText(modifyAppointment.getTimeOnly());
 
     }
 }
