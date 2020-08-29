@@ -1,19 +1,17 @@
 package view;
 
-import javafx.beans.property.StringProperty;
+import dao.dbAppointment;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.util.StringConverter;
 import model.Appointment;
 import java.net.URL;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class ModifyAppointmentController implements Initializable {
@@ -25,12 +23,13 @@ public class ModifyAppointmentController implements Initializable {
     @FXML private TextField idTextField;
     @FXML private TextField typeTextField;
     @FXML private TextField contactTextField;
-    @FXML private TextField locationTextField;
+    @FXML private ComboBox<String> cityComboBox;
     @FXML private TextField timeTextField;
     @FXML private DatePicker appointmentDatePicker;
 
     // CLASS VARIABLES
     public static Appointment modifyAppointment;
+    private ObservableList<String> comboCities = FXCollections.observableArrayList();
 
     // Class Constructor
     public ModifyAppointmentController() { }
@@ -44,15 +43,26 @@ public class ModifyAppointmentController implements Initializable {
         LocalDate date = modifyAppointment.getDateOnly();
         String textDate = date.toString();
         System.out.println("Formatted from SQL: " + textDate);
-//        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM-dd-yyyy", Locale.US);
-//        LocalDate formattedTextDate = LocalDate.parse(textDate, dtf);
-//        System.out.println("Formatted for Java: " + formattedTextDate);
         appointmentDatePicker.setValue(LocalDate.parse(textDate));
+    }
 
+    // Function to modify the record
+    public void modifyButtonClicked(javafx.event.ActionEvent actionEvent){
+        if(dao.dbAppointment.modifyAppointment(Integer.parseInt(idTextField.getText()), typeTextField.getText(), contactTextField.getText(),
+                cityComboBox.getSelectionModel().getSelectedItem(), String.valueOf(appointmentDatePicker.getValue()), timeTextField.getText())){
+        }else{
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setTitle("Error with Sql");
+            a.setHeaderText("Error with record");
+            a.setContentText("Please retry your entry.");
+            a.showAndWait();
+        }
     }
 
 
+    //-------------------------------------------------------------------------------------------------
     // Initialize method
+    //-------------------------------------------------------------------------------------------------
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         appointmentDatePicker.setConverter(
@@ -76,11 +86,54 @@ public class ModifyAppointmentController implements Initializable {
         idTextField.setText(Integer.toString(modifyAppointment.getaID()));
         typeTextField.setText(modifyAppointment.getaTitle());
         contactTextField.setText(modifyAppointment.getaContact());
-        locationTextField.setText(modifyAppointment.getaLocation());
+        // set a variable for the location, find the matching city, and set the combo box data
+        String cityLocation = modifyAppointment.getaLocation();
+        String timeZone;
+        comboCities = dao.dbCustomer.getAllCities();
+        cityComboBox.setItems(comboCities);
+        for (String city : comboCities){
+            if (city.compareTo(cityLocation) == 0){
+                cityComboBox.setValue(city);
+            }
+        }
+        // Finish filling out fields
+        // Set the date of the DatePicker object
         LocalDate date = modifyAppointment.getDateOnly();
         String textDate = date.toString();
         appointmentDatePicker.setValue(LocalDate.parse(textDate));
-        timeTextField.setText(modifyAppointment.getTimeOnly());
-
+        // Make conditional to set value for the city's time zone!!!! Transfer to ZoneId!!!!
+        if (cityLocation.compareTo("New York") == 0 || cityLocation.compareTo("Pickerington") ==0){
+            timeZone = "America/New_York";
+            System.out.println("New York timezone");
+        }
+        else if (cityLocation.compareTo("Los Angeles") == 0){
+            timeZone = "America/Los_Angeles";
+            System.out.println("LA timezone");
+        }
+        else if (cityLocation.compareTo("Toronto") == 0){
+            timeZone = "America/Toronto";
+            System.out.println("Toronto timezone");
+        }
+        else if (cityLocation.compareTo("Vancouver") == 0){
+            timeZone = "America/Vancouver";
+            System.out.println("Vancouver timezone");
+        }
+        else if (cityLocation.compareTo("Oslo") == 0){
+            timeZone = "Europe/Oslo";
+            System.out.println("Oslo timezone");
+        }
+        else {
+            timeZone = "ETC/UTC";
+            System.out.println("Else conditional..... UTC");
+        }
+        // Parse the time from the local date object to the appropriate time based on the appointments location.
+        String timeString = modifyAppointment.getaStartTime();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime testTime = LocalDateTime.parse(timeString, formatter)
+;//        LocalDateTime dbTime = dbAppointment.changeToUtc(timeString);
+        LocalDateTime utcTime = dbAppointment.changeFromUtc(testTime, timeZone);
+        String testTime2 = String.valueOf(utcTime);
+        String finalTime = testTime2.substring(11) + ":00";
+        timeTextField.setText(finalTime);
     }
 }

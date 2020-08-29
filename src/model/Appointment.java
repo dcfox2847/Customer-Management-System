@@ -135,24 +135,26 @@ public class Appointment {
 
     // Additional methods for date and time formatting
 
-    public StringProperty getaStart(){
+    public String getaStart(){
         DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime ldt = LocalDateTime.parse(this.aStartTime.getValue(), df);
         ZonedDateTime zdt = ldt.atZone(ZoneId.of("UTC"));
         ZoneId zid = ZoneId.systemDefault();
         ZonedDateTime utcDate = zdt.withZoneSameInstant(zid);
         StringProperty date = new SimpleStringProperty(utcDate.toLocalDateTime().toString());
-        return date;
+        String sDate = utcDate.toLocalDateTime().toString();
+        return sDate;
     }
 
-    public StringProperty getaDateOnly(){
+    public String getaDateOnly(){
         DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime ldt = LocalDateTime.parse(this.aStartTime.getValue(), df);
         ZonedDateTime zdt = ldt.atZone(ZoneId.of("UTC"));
         ZoneId zid = ZoneId.systemDefault();
         ZonedDateTime utcDate = zdt.withZoneSameInstant(zid);
         StringProperty date = new SimpleStringProperty(utcDate.toLocalDateTime().toString());
-        return date;
+        String sDate = utcDate.toLocalDateTime().toString();
+        return sDate;
     }
 
     public String getaEnd(){

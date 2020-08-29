@@ -4,7 +4,9 @@ import java.sql.*;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
+import java.util.TimeZone;
 
+import com.mysql.cj.xdevapi.Statement;
 import javafx.collections.*;
 import dao.dbConnection;
 import javafx.scene.control.Alert;
@@ -20,12 +22,6 @@ public class dbAppointment {
     private static String user;
 
     // Class Functions and methods
-
-    // TODO: Finish this conversion function
-    // Function to create a SQL DB readable time stamp
-    public static String convertTimeStamp(String date, String time, String location, boolean startMode){
-        return null;
-    }
 
     // Function to get all users appointments for the month
 
@@ -111,8 +107,8 @@ public class dbAppointment {
         return appointments;
     }
 
-    // Function to return any appointmens scheduled within the next 15 minutes.
-
+    // Function to return any appointments scheduled within the next 15 minutes.
+    //TODO: FIX THIS SO IT SHOWS APPOINTMENTS WITHIN 15 MINUTES.
     public static ObservableList<Appointment> get15MinuteApt(int id){
         ObservableList<Appointment> apt15Minutes = FXCollections.observableArrayList();
         Appointment apt;
@@ -148,39 +144,53 @@ public class dbAppointment {
     public static LocalDateTime changeToUtc(String stringTime){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime time = LocalDateTime.parse(stringTime, formatter);
-        LocalDateTime zuluTime = time.atZone(ZoneId.systemDefault()).withZoneSameInstant(ZoneId.of("UTC")).toLocalDateTime();
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String formatZulu = zuluTime.format(dtf);
-        LocalDateTime convertedZulu = LocalDateTime.parse(formatZulu, dtf);
-        System.out.println("Final formatted UTC time for the DB: " + convertedZulu);
-        return zuluTime;
+        return time.atZone(ZoneId.systemDefault()).withZoneSameInstant(ZoneId.of("UTC")).toLocalDateTime();
+    }
+    // Function to change time from UTC to local
+    public static LocalDateTime changeFromUtc(LocalDateTime stringTime, String timeZone){
+        ZonedDateTime zonedUTC = stringTime.atZone(ZoneId.of("UTC"));
+        ZonedDateTime zonedEST = zonedUTC.withZoneSameInstant(ZoneId.of(timeZone));
+        return LocalDateTime.from(zonedEST);
     }
 
-
-    // TODO: MAKE THE FUNCTION BELOW TO SAVE DATA INTO THE DATABASE.
-    // Function to create a new appointment entry in the database
-    // Arguments to replace -> (  int id, String type, String contact, String location, String date, String time  )
+    // Function to add a new appointment to the database
     public static boolean addAppointment(int id, String type, String description, String contact, String location, String date, String time){
-        String preConvertedString = date + " " + time;
-        LocalDateTime dateTimeString = changeToUtc(preConvertedString);
+        String preConvertedString = date + " " + time;  // The local time and date as String
+        LocalDateTime dateTimeString = changeToUtc(preConvertedString); // Time and date for UTC as LocalDateTime class
         try{
             String query = "INSERT INTO appointment SET customerId='" + id + "', userId='" + LoginController.currUser.getUserID() + "', title='" + type +
-                    "', description='" + description + "', location='" + location + "', contact='" + contact + "', type='" + type + "', url='', start='" + preConvertedString +
+                    "', description='" + description + "', location='" + location + "', contact='" + contact + "', type='" + type + "', url='', start='" + dateTimeString +
                     "', end='" + preConvertedString + "', createDate=NOW(), createdBy='test', lastUpdateBy='tester'";
             int added = stmt.executeUpdate(query);
             if(added == 1){
                 System.out.println("Appointment added: " + added);
                 return true;
             }
-
         } catch (SQLException ex){
             System.out.println("SQLException: " +  ex.getMessage());
         }
         return false;
     }
 
+//TODO: FUNCTION TO MODIFY AN EXISTING APPOINTMENT
 
-    // Functions for CRUD interactions for the modifying or adding of appointmens to go below here.
+    public static boolean modifyAppointment(int id, String type, String contact, String location, String date, String time){
+        String preConvertedString = date + " " + time;
+        LocalDateTime dateTimeString = changeToUtc(preConvertedString);
+        try{
+            //SQL UPDATE STATEMENT
+            String query = " UPDATE appointment SET title='" + type + "', description='" + type + "', contact='" + contact + "', location='" + location +
+                    "', start='" + dateTimeString + "' WHERE appointmentId=" + id;
+            int added = stmt.executeUpdate(query);
+            if(added==1){
+                System.out.println("Appointment has been modified.");
+                return true;
+            }
+        } catch (SQLException ex){
+            System.out.println("SQLException: " + ex);
+        }
+        return false;
+    }
 
 
 }

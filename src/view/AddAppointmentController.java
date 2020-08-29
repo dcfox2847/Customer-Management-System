@@ -1,5 +1,6 @@
 package view;
 
+import dao.dbCustomer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -36,12 +37,13 @@ public class AddAppointmentController implements Initializable {
     @FXML private TextField descriptionField;
     @FXML private TextField typeField;
     @FXML private TextField contactField;
-    @FXML private TextField locationField;
+    @FXML private ComboBox<String> cityComboBox;
     @FXML private TextField timeField;
 
     // Class Variables
     LocalDate date;
     Date sqlDate;
+    private ObservableList<String> comboCities = FXCollections.observableArrayList();
 
     private ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
 
@@ -53,6 +55,7 @@ public class AddAppointmentController implements Initializable {
 
     public void backButtonView(javafx.event.ActionEvent actionEvent){
         clearList();
+        dbCustomer.allCities.clear();
         ((Node) (actionEvent.getSource())).getScene().getWindow().hide();
         Stage stage = new Stage();
         Parent root = null;
@@ -98,7 +101,8 @@ public class AddAppointmentController implements Initializable {
         getDate();
         Customer cust = customerComboBox.getValue();
         if(getTime(timeField.getText())){
-            dao.dbAppointment.addAppointment(cust.getcID(), typeField.getText(), descriptionField.getText(), contactField.getText(), locationField.getText(), getDate(), timeField.getText());
+            dao.dbAppointment.addAppointment(cust.getcID(), typeField.getText(), descriptionField.getText(), contactField.getText(), cityComboBox.getSelectionModel().getSelectedItem(),
+                    getDate(), timeField.getText());
             Alert a = new Alert(Alert.AlertType.CONFIRMATION);
             a.setTitle("Entry added");
             a.setHeaderText("Entry added");
@@ -107,7 +111,9 @@ public class AddAppointmentController implements Initializable {
             typeField.setText("");
             descriptionField.setText("");
             contactField.setText("");
-            locationField.setText("");
+            comboCities = dao.dbCustomer.getAllCities();
+            cityComboBox.setItems(comboCities);
+            cityComboBox.getSelectionModel().clearSelection();
             timeField.setText("");
             customerComboBox.getSelectionModel().clearSelection();
             datePicker.setValue(null);
@@ -126,5 +132,7 @@ public class AddAppointmentController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         allCustomers = dao.dbCustomer.getAllCustomers();
         customerComboBox.setItems(allCustomers);
+        comboCities = dao.dbCustomer.getAllCities();
+        cityComboBox.setItems(comboCities);
     }
 }
