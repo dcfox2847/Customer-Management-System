@@ -119,6 +119,8 @@ public class dbCustomer {
         return false;
     }
 
+
+
     // Delete customer record
     public static boolean deleteCustomer(int id) {
         try {
@@ -136,6 +138,8 @@ public class dbCustomer {
         }
         return false;
     }
+
+
 
     // Return list of cities
     public static ObservableList<String> getAllCities(){

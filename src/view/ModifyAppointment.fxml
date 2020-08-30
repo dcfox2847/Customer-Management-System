@@ -85,6 +85,6 @@
          </children>
       </HBox>
       <Button fx:id="modifyButton" layoutX="671.0" layoutY="144.0" mnemonicParsing="false" onAction="#modifyButtonClicked" prefHeight="67.0" prefWidth="113.0" text="Modify" />
-      <Button fx:id="backButton" layoutX="671.0" layoutY="250.0" mnemonicParsing="false" prefHeight="67.0" prefWidth="113.0" text="Back" />
+      <Button fx:id="backButton" layoutX="671.0" layoutY="250.0" mnemonicParsing="false" onAction="#backButtonClicked" prefHeight="67.0" prefWidth="113.0" text="Back" />
    </children>
 </AnchorPane>

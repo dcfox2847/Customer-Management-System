@@ -7,6 +7,7 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 import com.mysql.cj.xdevapi.Statement;
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import javafx.collections.*;
 import dao.dbConnection;
 import javafx.scene.control.Alert;
@@ -110,28 +111,28 @@ public class dbAppointment {
     // Function to return any appointments scheduled within the next 15 minutes.
     //TODO: FIX THIS SO IT SHOWS APPOINTMENTS WITHIN 15 MINUTES.
     public static ObservableList<Appointment> get15MinuteApt(int id){
+        System.out.println("TESTING FROM INSIDE THE GET15MINUTES METHOD");
         ObservableList<Appointment> apt15Minutes = FXCollections.observableArrayList();
         Appointment apt;
-        Alert alert15Minutes = new Alert(Alert.AlertType.INFORMATION);
-        alert15Minutes.setTitle("Upcoming Appointment");
-        alert15Minutes.setHeaderText("Upcoming Appointment");
         LocalDateTime now = LocalDateTime.now();
+        System.out.println("TIME RIGHT NOW: " + now);
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         ZoneId zoneId = ZoneId.systemDefault();
         ZonedDateTime zonedDateTime = now.atZone(zoneId);
+        System.out.println("zonedDateTime: " + zonedDateTime);
         LocalDateTime localDateTime = zonedDateTime.withZoneSameInstant(ZoneId.of("UTC")).toLocalDateTime();
+        String lDateTime = localDateTime.format(dtf);
         LocalDateTime localDateTime1 = localDateTime.plusMinutes(15);
+        String lDateTime1 = localDateTime1.format(dtf);
         user = dbUser.getCurrentUser().getUserName();
         try{
-            String fifteenMinQuery =  "SELECT * FROM appointment WHERE userID = '" + id + "' AND start BETWEEN '" + localDateTime + "' AND '" + localDateTime1 + "' AND " +
-                    "contact='" + user + "'";
+            String fifteenMinQuery =  "SELECT * FROM appointment WHERE userID = '" + id + "' AND start BETWEEN '" + lDateTime + "' AND '" + lDateTime1 + "'";
             ResultSet resultSet = stmt.executeQuery(fifteenMinQuery);
             if(resultSet.next()){
                 apt = new Appointment(resultSet.getInt("appointmentId"), resultSet.getInt("customerId"),
                         resultSet.getString("start"), resultSet.getString("end"), resultSet.getString("title"),
                         resultSet.getString("description"), resultSet.getString("location"), resultSet.getString("contact"));
                 apt15Minutes.add(apt);
-                alert15Minutes.setContentText("You have an appointment with " + apt.getaCustName() + " at " + apt.getaStartTime());
-                alert15Minutes.show();
             }
         }catch (SQLException ex){
             System.out.println("SQLException (in the 15 minutes function): " + ex.getMessage());
@@ -192,5 +193,16 @@ public class dbAppointment {
         return false;
     }
 
-
-}
+    public static boolean deleteAppointment(int id){
+        String query = "DELETE FROM appointment WHERE appointmentId = " + id;
+        try {
+            int update = stmt.executeUpdate(query);
+            if(update == 1) {
+                return true;
+            }
+        } catch (SQLException e) {
+            System.out.println("Cannot delete Appointment: " + e.getMessage());
+        }
+        return false;
+    }
+    }

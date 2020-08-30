@@ -34,6 +34,11 @@
                   <Insets left="20.0" right="20.0" />
                </HBox.margin>
             </Button>
+            <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#onEdit" prefHeight="50.0" prefWidth="147.0" text="Delete Customer">
+               <HBox.margin>
+                  <Insets left="20.0" right="20.0" />
+               </HBox.margin>
+            </Button>
             <Button fx:id="custBackButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#switchMainView" prefHeight="50.0" prefWidth="134.0" text="Back">
                <HBox.margin>
                   <Insets left="20.0" right="20.0" />

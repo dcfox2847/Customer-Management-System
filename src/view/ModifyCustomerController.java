@@ -64,6 +64,18 @@ public class ModifyCustomerController implements Initializable {
     public void updateCustomer(){
         dao.dbCustomer.updateCustomer(Integer.parseInt(idTextField.getText()), nameTextField.getText(), addressTextField.getText(), cityComboBox.getSelectionModel().getSelectedIndex()+1,
                 zipTextField.getText(), phoneTextField.getText());
+        Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+        a.setTitle("Entry Updated");
+        a.setHeaderText("Entry Modified");
+        a.setContentText("Customer Record Updated");
+        a.showAndWait();
+        nameTextField.setText("");
+        addressTextField.setText("");
+        zipTextField.setText("");
+        phoneTextField.setText("");
+        comboCities = dao.dbCustomer.getAllCities();
+        cityComboBox.setItems(comboCities);
+        cityComboBox.getSelectionModel().clearSelection();
     }
 
 
@@ -75,8 +87,14 @@ public class ModifyCustomerController implements Initializable {
         idTextField.setDisable(true);
         nameTextField.setText(modifyCustomer.getcName());
         addressTextField.setText(modifyCustomer.getcAddress());
+        String cityLocation = modifyCustomer.getcCity();
         comboCities = dao.dbCustomer.getAllCities();
         cityComboBox.setItems(comboCities);
+        for (String city : comboCities){
+            if (city.compareTo(cityLocation) == 0){
+                cityComboBox.setValue(city);
+            }
+        }
         zipTextField.setText(modifyCustomer.getcZip());
         phoneTextField.setText(modifyCustomer.getcPhone());
     }

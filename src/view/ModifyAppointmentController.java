@@ -1,13 +1,21 @@
 package view;
 
 import dao.dbAppointment;
+import dao.dbCustomer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import model.Appointment;
+
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -50,6 +58,18 @@ public class ModifyAppointmentController implements Initializable {
     public void modifyButtonClicked(javafx.event.ActionEvent actionEvent){
         if(dao.dbAppointment.modifyAppointment(Integer.parseInt(idTextField.getText()), typeTextField.getText(), contactTextField.getText(),
                 cityComboBox.getSelectionModel().getSelectedItem(), String.valueOf(appointmentDatePicker.getValue()), timeTextField.getText())){
+            Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+            a.setTitle("Entry added");
+            a.setHeaderText("Entry added");
+            a.setContentText("Appointment added successfully");
+            a.showAndWait();
+            typeTextField.setText("");
+            contactTextField.setText("");
+            comboCities = dao.dbCustomer.getAllCities();
+            cityComboBox.setItems(comboCities);
+            cityComboBox.getSelectionModel().clearSelection();
+            appointmentDatePicker.setValue(null);
+            timeTextField.setText("");
         }else{
             Alert a = new Alert(Alert.AlertType.ERROR);
             a.setTitle("Error with Sql");
@@ -57,6 +77,21 @@ public class ModifyAppointmentController implements Initializable {
             a.setContentText("Please retry your entry.");
             a.showAndWait();
         }
+    }
+
+    public void backButtonClicked(javafx.event.ActionEvent actionEvent){
+        dbCustomer.allCities.clear();
+        ((Node) (actionEvent.getSource())).getScene().getWindow().hide();
+        Stage stage = new Stage();
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
 

@@ -48,6 +48,13 @@ public class AddCustomerController implements Initializable {
     public void addCustomer(){
         dao.dbCustomer.saveCustomer(nameTextField.getText(),addressTextField.getText(),
                 cityComboBox.getSelectionModel().getSelectedIndex()+1, zipTextField.getText(), phoneTextField.getText());
+        nameTextField.setText("");
+        addressTextField.setText("");
+        zipTextField.setText("");
+        phoneTextField.setText("");
+        comboCities = dao.dbCustomer.getAllCities();
+        cityComboBox.setItems(comboCities);
+        cityComboBox.getSelectionModel().clearSelection();
     }
 
     // Return to the ModifyCustomer page
