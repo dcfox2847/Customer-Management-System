@@ -22,10 +22,11 @@ public class dbAppointment {
 
     private static String user;
 
-    // Class Functions and methods
+    /*
+    * CLASS FUNCTIONS AND METHODS
+    * */
 
     // Function to get all users appointments for the month
-
     public static ObservableList<Appointment> getMonthlyApt(int id) {
         ObservableList<Appointment> appointments = FXCollections.observableArrayList();
         Appointment apt;
@@ -67,7 +68,6 @@ public class dbAppointment {
     }
 
      // Function to get all users appointments for the week
-
     public static ObservableList<Appointment> getWeeklyApt(int id){
         ObservableList<Appointment> appointments = FXCollections.observableArrayList();
         Appointment apt;
@@ -109,17 +109,16 @@ public class dbAppointment {
     }
 
     // Function to return any appointments scheduled within the next 15 minutes.
-    //TODO: FIX THIS SO IT SHOWS APPOINTMENTS WITHIN 15 MINUTES.
     public static ObservableList<Appointment> get15MinuteApt(int id){
-        System.out.println("TESTING FROM INSIDE THE GET15MINUTES METHOD");
+//        System.out.println("TESTING FROM INSIDE THE GET15MINUTES METHOD");
         ObservableList<Appointment> apt15Minutes = FXCollections.observableArrayList();
         Appointment apt;
         LocalDateTime now = LocalDateTime.now();
-        System.out.println("TIME RIGHT NOW: " + now);
+//        System.out.println("TIME RIGHT NOW: " + now);
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         ZoneId zoneId = ZoneId.systemDefault();
         ZonedDateTime zonedDateTime = now.atZone(zoneId);
-        System.out.println("zonedDateTime: " + zonedDateTime);
+//        System.out.println("zonedDateTime: " + zonedDateTime);
         LocalDateTime localDateTime = zonedDateTime.withZoneSameInstant(ZoneId.of("UTC")).toLocalDateTime();
         String lDateTime = localDateTime.format(dtf);
         LocalDateTime localDateTime1 = localDateTime.plusMinutes(15);
@@ -173,8 +172,7 @@ public class dbAppointment {
         return false;
     }
 
-//TODO: FUNCTION TO MODIFY AN EXISTING APPOINTMENT
-
+    // Function to modify an existing appointment
     public static boolean modifyAppointment(int id, String type, String contact, String location, String date, String time){
         String preConvertedString = date + " " + time;
         LocalDateTime dateTimeString = changeToUtc(preConvertedString);
@@ -193,6 +191,7 @@ public class dbAppointment {
         return false;
     }
 
+    // Function to delete an appointment
     public static boolean deleteAppointment(int id){
         String query = "DELETE FROM appointment WHERE appointmentId = " + id;
         try {
@@ -205,4 +204,49 @@ public class dbAppointment {
         }
         return false;
     }
+
+    // Function to check to for overlapping appointments
+    public static boolean overlappingAppointment (int id, String location,  String date, String time){
+        String preConvertedString = date + " " + time;
+        LocalDateTime dateTimeString = changeToUtc(preConvertedString);
+        try {
+            String query1 = "SELECT * FROM appointment "
+                    + "WHERE start = '" + dateTimeString + "' AND location = '" + location + "'";
+            ResultSet results = stmt.executeQuery(query1);
+            if(results.next()) {
+                if(results.getInt("appointmentId") == id) {
+                    return false;
+                }
+                return true;
+            } else {
+                return false;
+            }
+
+        } catch (SQLException e) {
+            System.out.println("SQL Error: " + e.getMessage());
+            return true;
+        }
     }
+
+    // Function to check for appointment outside of business hours
+    public static boolean outsideOfBusinessHours(String location, String date, String time) {
+        try {
+            int weekendReturn = 0;
+            String queryWeekend = "SELECT DAYOFWEEK('" + date + "') AS dayNumber;";
+            ResultSet weekendResultSet = stmt.executeQuery(queryWeekend);
+            if (weekendResultSet.next()) {
+                weekendReturn = weekendResultSet.getInt("dayNumber");
+                System.out.println("SQL number for the day: " + weekendReturn);
+            }
+            if (weekendReturn == 1 || weekendReturn == 6){
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL ERROR: " + e.getMessage());
+            return true;
+        }
+
+    }
+}

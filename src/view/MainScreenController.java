@@ -89,7 +89,7 @@ public class MainScreenController implements Initializable {
         System.out.println("Appointments in 15 minutes: " + appointmentFifteen.size());
         if(appointmentFifteen.size() != 0){
             for(Appointment item : appointmentFifteen){
-                System.out.println("Appointment: " + item.getaID() + " Start time: " + item.getaStartTime());
+//                System.out.println("Appointment: " + item.getaID() + " Start time: " + item.getaStartTime());
                 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
                 LocalDateTime startTime = LocalDateTime.parse(item.getaStartTime(), dtf);
                 String timeZone;
@@ -130,35 +130,30 @@ public class MainScreenController implements Initializable {
             }
 
         }
-        System.out.println("Testing to see what the User ID returns: " + LoginController.currUser.getUserID());
+//        System.out.println("Testing to see what the User ID returns: " + LoginController.currUser.getUserID());
         appointmentMonth = dao.dbAppointment.getMonthlyApt(LoginController.currUser.getUserID());
         // Get time zone by city
         assert appointmentMonth != null;
         for(Appointment apt : appointmentMonth){
-            System.out.println("Appointment: " + apt.getaID() + " Start time: " + apt.getaStartTime());
+//            System.out.println("Appointment: " + apt.getaID() + " Start time: " + apt.getaStartTime());
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             LocalDateTime startTime = LocalDateTime.parse(apt.getaStartTime(), dtf);
             String timeZone;
             String cityLocation = apt.getaLocation();
             if (cityLocation.compareTo("New York") == 0 || cityLocation.compareTo("Pickerington") ==0){
                 timeZone = "America/New_York";
-                System.out.println("New York timezone");
             }
             else if (cityLocation.compareTo("Los Angeles") == 0){
                 timeZone = "America/Los_Angeles";
-                System.out.println("LA timezone");
             }
             else if (cityLocation.compareTo("Toronto") == 0){
                 timeZone = "America/Toronto";
-                System.out.println("Toronto timezone");
             }
             else if (cityLocation.compareTo("Vancouver") == 0){
                 timeZone = "America/Vancouver";
-                System.out.println("Vancouver timezone");
             }
             else if (cityLocation.compareTo("Oslo") == 0){
                 timeZone = "Europe/Oslo";
-                System.out.println("Oslo timezone");
             }
             else {
                 timeZone = "ETC/UTC";

@@ -56,27 +56,37 @@ public class ModifyAppointmentController implements Initializable {
 
     // Function to modify the record
     public void modifyButtonClicked(javafx.event.ActionEvent actionEvent){
-        if(dao.dbAppointment.modifyAppointment(Integer.parseInt(idTextField.getText()), typeTextField.getText(), contactTextField.getText(),
-                cityComboBox.getSelectionModel().getSelectedItem(), String.valueOf(appointmentDatePicker.getValue()), timeTextField.getText())){
-            Alert a = new Alert(Alert.AlertType.CONFIRMATION);
-            a.setTitle("Entry added");
-            a.setHeaderText("Entry added");
-            a.setContentText("Appointment added successfully");
-            a.showAndWait();
-            typeTextField.setText("");
-            contactTextField.setText("");
-            comboCities = dao.dbCustomer.getAllCities();
-            cityComboBox.setItems(comboCities);
-            cityComboBox.getSelectionModel().clearSelection();
-            appointmentDatePicker.setValue(null);
-            timeTextField.setText("");
-        }else{
-            Alert a = new Alert(Alert.AlertType.ERROR);
-            a.setTitle("Error with Sql");
-            a.setHeaderText("Error with record");
-            a.setContentText("Please retry your entry.");
-            a.showAndWait();
-        }
+        boolean overlappingAppointment = false;
+        boolean outsideHours = false;
+        overlappingAppointment = dbAppointment.overlappingAppointment(Integer.parseInt(idTextField.getText()), cityComboBox.getValue(),
+                String.valueOf(appointmentDatePicker.getValue()), timeTextField.getText());
+        outsideHours = dbAppointment.outsideOfBusinessHours(cityComboBox.getValue(), String.valueOf(appointmentDatePicker.getValue()), timeTextField.getText());
+        System.out.println("Overlapping appt? " + overlappingAppointment);
+        System.out.println("Outside business hours? " + outsideHours);
+        // Use functions to test for
+//        if (!overlappingAppointment && !outsideHours) {
+            if (dao.dbAppointment.modifyAppointment(Integer.parseInt(idTextField.getText()), typeTextField.getText(), contactTextField.getText(),
+                    cityComboBox.getSelectionModel().getSelectedItem(), String.valueOf(appointmentDatePicker.getValue()), timeTextField.getText())) {
+                Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+                a.setTitle("Entry added");
+                a.setHeaderText("Entry added");
+                a.setContentText("Appointment added successfully");
+                a.showAndWait();
+                typeTextField.setText("");
+                contactTextField.setText("");
+                comboCities = dao.dbCustomer.getAllCities();
+                cityComboBox.setItems(comboCities);
+                cityComboBox.getSelectionModel().clearSelection();
+                appointmentDatePicker.setValue(null);
+                timeTextField.setText("");
+            } else {
+                Alert a = new Alert(Alert.AlertType.ERROR);
+                a.setTitle("Error with Sql");
+                a.setHeaderText("Error with record");
+                a.setContentText("Please retry your entry.");
+                a.showAndWait();
+            }
+//        }
     }
 
     public void backButtonClicked(javafx.event.ActionEvent actionEvent){
@@ -132,10 +142,12 @@ public class ModifyAppointmentController implements Initializable {
             }
         }
         // Finish filling out fields
-        // Set the date of the DatePicker object
+        // Set the date of the DatePicker object and disable weekends
+
         LocalDate date = modifyAppointment.getDateOnly();
         String textDate = date.toString();
         appointmentDatePicker.setValue(LocalDate.parse(textDate));
+
         // Make conditional to set value for the city's time zone!!!! Transfer to ZoneId!!!!
         if (cityLocation.compareTo("New York") == 0 || cityLocation.compareTo("Pickerington") ==0){
             timeZone = "America/New_York";
