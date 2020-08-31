@@ -131,7 +131,8 @@ public class CustomerController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Delete");
             alert.setContentText("Item Deleted");
-            ButtonType okButton = new ButtonType("Ok", ButtonBar.ButtonData.YES);
+//            ButtonType okButton = new ButtonType("Ok", ButtonBar.ButtonData.YES);
+            // lambda expression used to show that customer item was deleted.
             alert.showAndWait().ifPresent(type -> {
                 if (type == ButtonType.OK){
                     System.out.println("Button Clicked. Item Deleted.");

@@ -355,7 +355,8 @@ public class MainScreenController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Delete");
             alert.setContentText("Item Deleted");
-            ButtonType okButton = new ButtonType("Ok", ButtonBar.ButtonData.YES);
+            //ButtonType okButton = new ButtonType("Ok", ButtonBar.ButtonData.YES);
+            // Lambda expression used to show that the Appointment object was deleted.
             alert.showAndWait().ifPresent(type -> {
                 if (type == ButtonType.OK){
                     System.out.println("Button Clicked. Item Deleted.");

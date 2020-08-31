@@ -60,8 +60,51 @@ public class ModifyCustomerController implements Initializable {
         stage.show();
     }
 
+    // Function to check and see that all forms have the proper data in them before attempting to send data to the DB
+    public Boolean checkEmptyFields(){
+        if (zipTextField.getText() == null || zipTextField.getText().trim().isEmpty()) {
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setHeaderText("Error");
+            a.setContentText("The appointment 'Type' field cannot be empty.");
+            a.showAndWait();
+            return true;
+        }
+        if (nameTextField.getText() == null || nameTextField.getText().trim().isEmpty()) {
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setHeaderText("Error");
+            a.setContentText("The contact field cannot be empty.");
+            a.showAndWait();
+            return true;
+        }
+        if (addressTextField.getText() == null || addressTextField.getText().trim().isEmpty()) {
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setHeaderText("Error");
+            a.setContentText("The appointment time field cannot be empty.");
+            a.showAndWait();
+            return true;
+        }
+        if (cityComboBox.getSelectionModel().isEmpty()) {
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setHeaderText("Error");
+            a.setContentText("The location selection box cannot be empty.");
+            a.showAndWait();
+            return true;
+        }
+        if (phoneTextField.getText() == null || phoneTextField.getText().trim().isEmpty()) {
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setHeaderText("Error");
+            a.setContentText("The date selection box cannot be empty.");
+            a.showAndWait();
+            return true;
+        }
+        return false;
+    }
+
     // Update the customer information using textfield information
     public void updateCustomer(){
+        if (checkEmptyFields()){
+            return;
+        }
         dao.dbCustomer.updateCustomer(Integer.parseInt(idTextField.getText()), nameTextField.getText(), addressTextField.getText(), cityComboBox.getSelectionModel().getSelectedIndex()+1,
                 zipTextField.getText(), phoneTextField.getText());
         Alert a = new Alert(Alert.AlertType.CONFIRMATION);

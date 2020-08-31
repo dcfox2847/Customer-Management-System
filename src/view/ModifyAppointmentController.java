@@ -87,7 +87,6 @@ public class ModifyAppointmentController implements Initializable {
     // Function to modify the record
     public void modifyButtonClicked(javafx.event.ActionEvent actionEvent){
         if(checkEmptyFields()){
-            System.out.println("CheckEmptyFields called!");
             return;
         }
         boolean overlappingAppointment = false;

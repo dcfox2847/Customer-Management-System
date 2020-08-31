@@ -8,10 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -40,12 +37,56 @@ public class AddCustomerController implements Initializable {
 
     // Class functions and methods
 
+    // function to clear the comboCities list
     public void clearList(){
         comboCities.clear();
     }
 
+    // Function to check and see that all forms have the proper data in them before attempting to send data to the DB
+    public Boolean checkEmptyFields(){
+        if (zipTextField.getText() == null || zipTextField.getText().trim().isEmpty()) {
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setHeaderText("Error");
+            a.setContentText("The appointment 'Type' field cannot be empty.");
+            a.showAndWait();
+            return true;
+        }
+        if (nameTextField.getText() == null || nameTextField.getText().trim().isEmpty()) {
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setHeaderText("Error");
+            a.setContentText("The contact field cannot be empty.");
+            a.showAndWait();
+            return true;
+        }
+        if (addressTextField.getText() == null || addressTextField.getText().trim().isEmpty()) {
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setHeaderText("Error");
+            a.setContentText("The appointment time field cannot be empty.");
+            a.showAndWait();
+            return true;
+        }
+        if (cityComboBox.getSelectionModel().isEmpty()) {
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setHeaderText("Error");
+            a.setContentText("The location selection box cannot be empty.");
+            a.showAndWait();
+            return true;
+        }
+        if (phoneTextField.getText() == null || phoneTextField.getText().trim().isEmpty()) {
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setHeaderText("Error");
+            a.setContentText("The date selection box cannot be empty.");
+            a.showAndWait();
+            return true;
+        }
+        return false;
+    }
+
     // Add customer to DB
     public void addCustomer(){
+        if (checkEmptyFields()){
+            return;
+        }
         dao.dbCustomer.saveCustomer(nameTextField.getText(),addressTextField.getText(),
                 cityComboBox.getSelectionModel().getSelectedIndex()+1, zipTextField.getText(), phoneTextField.getText());
         nameTextField.setText("");
