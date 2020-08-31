@@ -20,36 +20,17 @@ public class dbConnection {
 
 
     // The constructors for the class
-
     public dbConnection() {};
 
     // Methods and Functions of the class
 
+    // function to make a connection to the database
     public static void makeConnection() throws SQLException {
         try{
-             //Register the Driver
-            //Class.forName(DRIVER);
-
-            //Open the connection
             System.out.println("Connection to database...");
             conn = DriverManager.getConnection(CONNECTION_ADDR, USERNAME, PASSWORD);
             stmt = conn.createStatement();
             System.out.println("Connection complete....");
-
-//            //Execute a query
-//            System.out.println("Creating a statement....");
-//            stmt = conn.createStatement();
-//            String testStatement = "Select * from customer";
-//            rs = stmt.executeQuery(testStatement);
-
-//            // Extract the data from the result set
-//            while(rs.next()){
-//                String name = rs.getString("customerName");
-//                int address = rs.getInt("addressID");
-//                System.out.println("Customer name:" + name);
-//                System.out.println("Address ID: " + address);
-//            }
-
         } catch (SQLException se){
             se.printStackTrace();
             if(stmt != null){
@@ -63,10 +44,9 @@ public class dbConnection {
         }
     }
 
+    // function to close the connection to the database
     public static void closeConnection() throws SQLException {
         try{
-//            rs.close();
-//            stmt.close();
             conn.close();
         }catch (SQLException se2){
             se2.printStackTrace();
@@ -74,6 +54,4 @@ public class dbConnection {
         System.out.println("The connection has been closed.");
 
     }
-
-
 }

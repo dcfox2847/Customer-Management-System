@@ -34,7 +34,6 @@ public class dbReports {
     }
 
     // function to get appointments for all consultants schedules
-
     public static void consultantSchedule(javafx.scene.control.TextArea textArea){
         try{
             String query = "SELECT appointment.contact AS contact, appointment.location AS location, appointment.description AS description, user.userName AS userName, customer.customerName AS customerName, start AS start " +

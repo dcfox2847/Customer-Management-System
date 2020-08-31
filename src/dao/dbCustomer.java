@@ -18,6 +18,8 @@ public class dbCustomer {
     public static int addressCount;
     public static int addressId;
 
+    // CLASS FUNCTIONS AND METHODS:
+
     // Methods used for retrieving customer data
     // Returns a single customer
     public static Customer getCustomer(int id) {
@@ -64,10 +66,6 @@ public class dbCustomer {
 
 
     // Create new customer record
-    //TODO : FIX THE SAVE CUSTOMER METHOD!!!!!
-    //TODO: USE THE 'ADDRESSCOUNT' VARIABLE TO CHECK THE AMOUNT OF ADDRESSES IN THE DATABASE
-    //TODO: THE NEWLY ADDED ADDRESS WILL HAVE AN NEW ADDRESS ID
-    //TODO: AFTER VERIFYING CITY, ADD THE CUSTOMER INFORMATION INTO THE CUSTOMER TABLE!!!!!!
     public static boolean saveCustomer(String name, String address, int cityId, String zip, String phone) {
         try {
             // This is your test string to check to see if the city id exists in the address database already.

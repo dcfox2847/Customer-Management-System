@@ -2,9 +2,6 @@ package dao;
 
 import java.sql.*;
 import model.User;
-import dao.dbConnection;
-
-import javax.swing.plaf.nimbus.State;
 
 
 public class dbUser {

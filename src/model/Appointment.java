@@ -186,48 +186,16 @@ public class Appointment {
         return ld;
     }
 
-    public String getTimeOnly() {
-        Timestamp ts = Timestamp.valueOf(this.aStartTime.get());
-        ZonedDateTime zdt;
-        ZoneId zid;
-        LocalTime lt;
-        if(this.aLocation.get().equals("New York")) {
-            zid = ZoneId.of("America/New_York");
-            zdt = ts.toLocalDateTime().atZone(zid);
-            lt = zdt.toLocalTime().minusHours(4);
-        } else if(this.aLocation.get().equals("Phoenix")) {
-            zid = ZoneId.of("America/Los_Angeles");
-            zdt = ts.toLocalDateTime().atZone(zid);
-            lt = zdt.toLocalTime().minusHours(8);
-        } else {
-            zid = ZoneId.of("Europe/London");
-            zdt = ts.toLocalDateTime().atZone(zid);
-            lt = zdt.toLocalTime().plusHours(1);
-        }
-        int rawH = Integer.parseInt(lt.toString().split(":")[0]);
-        if(rawH > 12) {
-            rawH -= 12;
-        }
-        String ampm;
-        if(rawH < 9 || rawH == 12) {
-            ampm = "PM";
-        } else {
-            ampm = "AM";
-        }
-        String time = rawH + ":00 " + ampm;
-        return time;
-    }
-
-    public String get15Time() {
-        DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
-        LocalDateTime ldt = LocalDateTime.parse(this.aStartTime.getValue(), df);
-        ZonedDateTime zdt = ldt.atZone(ZoneId.of("UTC"));
-        ZoneId zid = ZoneId.systemDefault();
-        ZonedDateTime utcDate = zdt.withZoneSameInstant(zid);
-        DateTimeFormatter tFormatter = DateTimeFormatter.ofPattern("kk:mm");
-        LocalTime localTime = LocalTime.parse(utcDate.toString().substring(11,16), tFormatter);
-        return localTime.toString();
-    }
+//    public String get15Time() {
+//        DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
+//        LocalDateTime ldt = LocalDateTime.parse(this.aStartTime.getValue(), df);
+//        ZonedDateTime zdt = ldt.atZone(ZoneId.of("UTC"));
+//        ZoneId zid = ZoneId.systemDefault();
+//        ZonedDateTime utcDate = zdt.withZoneSameInstant(zid);
+//        DateTimeFormatter tFormatter = DateTimeFormatter.ofPattern("kk:mm");
+//        LocalTime localTime = LocalTime.parse(utcDate.toString().substring(11,16), tFormatter);
+//        return localTime.toString();
+//    }
 
     /*
     INSERT THE METHODS NEEDED FOR CHANGING THE DATES AND TIMES HERE

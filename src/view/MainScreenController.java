@@ -6,9 +6,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import model.Customer;
+
 import model.User;
-import utils.Log;
+
 import dao.*;
 import model.Appointment;
 import javafx.fxml.FXML;
@@ -22,7 +22,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
-import java.util.Locale;
+
 import java.util.ResourceBundle;
 
 
@@ -287,6 +287,11 @@ public class MainScreenController implements Initializable {
     // function to clear the tableview
     public void clearTable(){
         aptTableView.getItems().clear();
+        if(aptWeeklyRadio.isSelected()){
+            aptWeeklyRadio.setSelected(false);
+        } else {
+            aptMonthlyRadio.setSelected(false);
+        }
     }
 
     // function to switch to the customer details screen
