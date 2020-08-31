@@ -44,27 +44,61 @@ public class ModifyAppointmentController implements Initializable {
 
     // Class Methods and Functions
 
-    // This is a function built purely for testing the values going into and out of the Appointment object
-    public void testObject(){
-        System.out.println("ID: " + modifyAppointment.getaID());
-        System.out.println("Date: " + modifyAppointment.getaStartTime());
-        LocalDate date = modifyAppointment.getDateOnly();
-        String textDate = date.toString();
-        System.out.println("Formatted from SQL: " + textDate);
-        appointmentDatePicker.setValue(LocalDate.parse(textDate));
+    // Function to check and see that all forms have the proper data in them before attempting to send data to the DB
+    public Boolean checkEmptyFields(){
+        if (typeTextField.getText() == null || typeTextField.getText().trim().isEmpty()) {
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setHeaderText("Error");
+            a.setContentText("The appointment 'Type' field cannot be empty.");
+            a.showAndWait();
+            return true;
+        }
+        if (contactTextField.getText() == null || contactTextField.getText().trim().isEmpty()) {
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setHeaderText("Error");
+            a.setContentText("The contact field cannot be empty.");
+            a.showAndWait();
+            return true;
+        }
+        if (timeTextField.getText() == null || timeTextField.getText().trim().isEmpty()) {
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setHeaderText("Error");
+            a.setContentText("The appointment time field cannot be empty.");
+            a.showAndWait();
+            return true;
+        }
+        if (cityComboBox.getSelectionModel().isEmpty()) {
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setHeaderText("Error");
+            a.setContentText("The location selection box cannot be empty.");
+            a.showAndWait();
+            return true;
+        }
+        if (appointmentDatePicker.getValue() == null) {
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setHeaderText("Error");
+            a.setContentText("The date selection box cannot be empty.");
+            a.showAndWait();
+            return true;
+        }
+        return false;
     }
 
     // Function to modify the record
     public void modifyButtonClicked(javafx.event.ActionEvent actionEvent){
+        if(checkEmptyFields()){
+            System.out.println("CheckEmptyFields called!");
+            return;
+        }
         boolean overlappingAppointment = false;
         boolean outsideHours = false;
         overlappingAppointment = dbAppointment.overlappingAppointment(Integer.parseInt(idTextField.getText()), cityComboBox.getValue(),
                 String.valueOf(appointmentDatePicker.getValue()), timeTextField.getText());
-        outsideHours = dbAppointment.outsideOfBusinessHours(cityComboBox.getValue(), String.valueOf(appointmentDatePicker.getValue()), timeTextField.getText());
+        outsideHours = dbAppointment.outsideOfBusinessHours(String.valueOf(appointmentDatePicker.getValue()), timeTextField.getText());
         System.out.println("Overlapping appt? " + overlappingAppointment);
         System.out.println("Outside business hours? " + outsideHours);
         // Use functions to test for
-//        if (!overlappingAppointment && !outsideHours) {
+        if (!overlappingAppointment && !outsideHours) {
             if (dao.dbAppointment.modifyAppointment(Integer.parseInt(idTextField.getText()), typeTextField.getText(), contactTextField.getText(),
                     cityComboBox.getSelectionModel().getSelectedItem(), String.valueOf(appointmentDatePicker.getValue()), timeTextField.getText())) {
                 Alert a = new Alert(Alert.AlertType.CONFIRMATION);
@@ -86,7 +120,29 @@ public class ModifyAppointmentController implements Initializable {
                 a.setContentText("Please retry your entry.");
                 a.showAndWait();
             }
-//        }
+        } else {
+            if ( overlappingAppointment && outsideHours){
+                Alert a = new Alert(Alert.AlertType.ERROR);
+                a.setTitle("Error");
+                a.setHeaderText("Error Encountered");
+                a.setContentText("The appointment you are trying to modify is both outside of normal " +
+                        "business operating hours, and overlaps with an existing appointment at this location.");
+                a.showAndWait();
+            } else if (overlappingAppointment){
+                Alert a = new Alert(Alert.AlertType.ERROR);
+                a.setTitle("Error");
+                a.setHeaderText("Error Encountered");
+                a.setContentText(" The appointment you are trying to schedule overlaps with another " +
+                        "appointment at this time and location.");
+                a.showAndWait();
+            } else if (outsideHours){
+                Alert a = new Alert(Alert.AlertType.ERROR);
+                a.setTitle("Error");
+                a.setHeaderText("Error Encountered");
+                a.setContentText("The appointment you are modifying is set outside of normal business hours.");
+                a.showAndWait();
+            }
+        }
     }
 
     public void backButtonClicked(javafx.event.ActionEvent actionEvent){
@@ -176,11 +232,12 @@ public class ModifyAppointmentController implements Initializable {
         // Parse the time from the local date object to the appropriate time based on the appointments location.
         String timeString = modifyAppointment.getaStartTime();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        LocalDateTime testTime = LocalDateTime.parse(timeString, formatter)
+        LocalDateTime testTime = LocalDateTime.parse(timeString, formatter);
+        String formattedStringTime = testTime.format(formatter);
 ;//        LocalDateTime dbTime = dbAppointment.changeToUtc(timeString);
         LocalDateTime utcTime = dbAppointment.changeFromUtc(testTime, timeZone);
         String testTime2 = String.valueOf(utcTime);
-        String finalTime = testTime2.substring(11) + ":00";
+        String finalTime = formattedStringTime.substring(11);
         timeTextField.setText(finalTime);
     }
 }

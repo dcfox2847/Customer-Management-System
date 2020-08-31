@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import com.mysql.cj.protocol.Resultset;
 import com.mysql.cj.xdevapi.Statement;
 import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import javafx.collections.*;
@@ -205,7 +206,7 @@ public class dbAppointment {
         return false;
     }
 
-    // Function to check to for overlapping appointments
+    // Function to check to for overlapping appointments in the modifyAppointment class
     public static boolean overlappingAppointment (int id, String location,  String date, String time){
         String preConvertedString = date + " " + time;
         LocalDateTime dateTimeString = changeToUtc(preConvertedString);
@@ -228,25 +229,57 @@ public class dbAppointment {
         }
     }
 
+    // Function to check for overlapping appointments int the addAppointment class
+    public static boolean addOverlappingAppointment(String location, String date, String time){
+        String preConvertedString = date + " " + time;
+        LocalDateTime dateTimeString = changeToUtc(preConvertedString);
+        try{
+            String query1 = "SELECT * FROM appointment WHERE start= '" + dateTimeString + "' AND location = '" + location + "'";
+            ResultSet results = stmt.executeQuery(query1);
+            if(results.next()){
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException e){
+            System.out.println("SQL ERROR: " + e.getMessage());
+            return true;
+        }
+    }
+
     // Function to check for appointment outside of business hours
-    public static boolean outsideOfBusinessHours(String location, String date, String time) {
+    public static boolean outsideOfBusinessHours(String date, String time) {
         try {
             int weekendReturn = 0;
+            String firstTime = date + " " + time;
+            System.out.println("Test of time and date before conversion: " + firstTime);
+            LocalDateTime utcTime = changeToUtc(firstTime);
+            System.out.println("Test of time and date after conversion " + utcTime);
             String queryWeekend = "SELECT DAYOFWEEK('" + date + "') AS dayNumber;";
+            String queryBusinessHours = "SELECT HOUR('" + firstTime + "') AS hour;";
             ResultSet weekendResultSet = stmt.executeQuery(queryWeekend);
             if (weekendResultSet.next()) {
                 weekendReturn = weekendResultSet.getInt("dayNumber");
                 System.out.println("SQL number for the day: " + weekendReturn);
             }
-            if (weekendReturn == 1 || weekendReturn == 6){
+            if (weekendReturn == 1 || weekendReturn == 6) {
                 return true;
             } else {
-                return false;
+                ResultSet businessHoursResultSet = stmt.executeQuery(queryBusinessHours);
+                if (businessHoursResultSet.next()) {
+                    int timeReturned = businessHoursResultSet.getInt("hour");
+                    System.out.println("Time returned: " + timeReturned);
+                    if (timeReturned < 6 || timeReturned > 18) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
             }
         } catch (SQLException e) {
             System.out.println("SQL ERROR: " + e.getMessage());
             return true;
         }
-
+        return false;
     }
 }
