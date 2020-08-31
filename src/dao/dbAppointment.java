@@ -3,18 +3,9 @@ package dao;
 import java.sql.*;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
-import java.util.Locale;
-import java.util.TimeZone;
-
-import com.mysql.cj.protocol.Resultset;
-import com.mysql.cj.xdevapi.Statement;
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import javafx.collections.*;
-import dao.dbConnection;
-import javafx.scene.control.Alert;
 import model.Appointment;
 import model.Customer;
-import model.User;
 import view.LoginController;
 
 import static dao.dbConnection.stmt;

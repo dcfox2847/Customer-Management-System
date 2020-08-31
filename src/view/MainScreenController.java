@@ -30,6 +30,7 @@ public class MainScreenController implements Initializable {
 
     // Form Controls
     @FXML private Button reloadButton;
+    @FXML private Button reportsButton;
     @FXML private Button aptButton;
     @FXML private Button custButton;
     @FXML private Button deleteButton;
@@ -61,9 +62,7 @@ public class MainScreenController implements Initializable {
     // class constructor
     public MainScreenController() {}
 
-
     // Class Initialization
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Setting up of the radio buttons
@@ -130,12 +129,10 @@ public class MainScreenController implements Initializable {
             }
 
         }
-//        System.out.println("Testing to see what the User ID returns: " + LoginController.currUser.getUserID());
         appointmentMonth = dao.dbAppointment.getMonthlyApt(LoginController.currUser.getUserID());
         // Get time zone by city
         assert appointmentMonth != null;
         for(Appointment apt : appointmentMonth){
-//            System.out.println("Appointment: " + apt.getaID() + " Start time: " + apt.getaStartTime());
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             LocalDateTime startTime = LocalDateTime.parse(apt.getaStartTime(), dtf);
             String timeZone;
@@ -172,6 +169,22 @@ public class MainScreenController implements Initializable {
         aptTableView.setItems(appointmentMonth);
     }
 
+    // function to change to the reports Screen
+    public void switchReportsView(javafx.event.ActionEvent actionEvent){
+        ((Node) (actionEvent.getSource())).getScene().getWindow().hide();
+        Stage stage = new Stage();
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("Reports.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    // function to change to a weekly view. Works based on radio button selection and its listener.
     public void changeToWeek(){
         System.out.println("You have clicked the 'weekly' radio button, and displaying for the week.");
         aptTableView.getItems().clear();
@@ -221,6 +234,7 @@ public class MainScreenController implements Initializable {
         aptTableView.setItems(appointmentWeek);
     }
 
+    // function to change to a month view. Works based on radio button selection and its listener
     public void changeToMonth(){
         System.out.println("You have clicked the 'monthly' radio button, and displaying for the month.");
         aptTableView.getItems().clear();
@@ -270,10 +284,12 @@ public class MainScreenController implements Initializable {
         aptTableView.setItems(appointmentMonth);
     }
 
+    // function to clear the tableview
     public void clearTable(){
         aptTableView.getItems().clear();
     }
 
+    // function to switch to the customer details screen
     public void switchCustomerView(javafx.event.ActionEvent actionEvent){
         ((Node) (actionEvent.getSource())).getScene().getWindow().hide();
         Stage stage = new Stage();
@@ -287,7 +303,7 @@ public class MainScreenController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
-
+    // function to switch to the add appointment view
     public void switchAddAppointmentView(javafx.event.ActionEvent actionEvent){
         ((Node) (actionEvent.getSource())).getScene().getWindow().hide();
         Stage stage = new Stage();
@@ -302,6 +318,7 @@ public class MainScreenController implements Initializable {
         stage.show();
     }
 
+    // function to switch to the modify appointment view
     public void switchModifyAppointmentView(javafx.event.ActionEvent actionEvent){
         appointment = aptTableView.getSelectionModel().getSelectedItem();
         ModifyAppointmentController.modifyAppointment = appointment;
@@ -323,6 +340,7 @@ public class MainScreenController implements Initializable {
         stage.show();
     }
 
+    // function to delete an appointment based on what you have selected in the table view
     public void deleteAppointment(javafx.event.ActionEvent actionEvent){
         if(aptTableView.getSelectionModel().getSelectedItem() != null){
             Appointment appointmentToDelete = aptTableView.getSelectionModel().getSelectedItem();

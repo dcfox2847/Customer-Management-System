@@ -235,8 +235,8 @@ public class ModifyAppointmentController implements Initializable {
         LocalDateTime testTime = LocalDateTime.parse(timeString, formatter);
         String formattedStringTime = testTime.format(formatter);
 ;//        LocalDateTime dbTime = dbAppointment.changeToUtc(timeString);
-        LocalDateTime utcTime = dbAppointment.changeFromUtc(testTime, timeZone);
-        String testTime2 = String.valueOf(utcTime);
+//        LocalDateTime utcTime = dbAppointment.changeFromUtc(testTime, timeZone);
+//        String testTime2 = String.valueOf(utcTime);
         String finalTime = formattedStringTime.substring(11);
         timeTextField.setText(finalTime);
     }
