@@ -65,21 +65,21 @@ public class ModifyCustomerController implements Initializable {
         if (zipTextField.getText() == null || zipTextField.getText().trim().isEmpty()) {
             Alert a = new Alert(Alert.AlertType.ERROR);
             a.setHeaderText("Error");
-            a.setContentText("The appointment 'Type' field cannot be empty.");
+            a.setContentText("The zip code field cannot be empty.");
             a.showAndWait();
             return true;
         }
         if (nameTextField.getText() == null || nameTextField.getText().trim().isEmpty()) {
             Alert a = new Alert(Alert.AlertType.ERROR);
             a.setHeaderText("Error");
-            a.setContentText("The contact field cannot be empty.");
+            a.setContentText("The name field cannot be empty.");
             a.showAndWait();
             return true;
         }
         if (addressTextField.getText() == null || addressTextField.getText().trim().isEmpty()) {
             Alert a = new Alert(Alert.AlertType.ERROR);
             a.setHeaderText("Error");
-            a.setContentText("The appointment time field cannot be empty.");
+            a.setContentText("The address field cannot be empty.");
             a.showAndWait();
             return true;
         }
@@ -93,7 +93,7 @@ public class ModifyCustomerController implements Initializable {
         if (phoneTextField.getText() == null || phoneTextField.getText().trim().isEmpty()) {
             Alert a = new Alert(Alert.AlertType.ERROR);
             a.setHeaderText("Error");
-            a.setContentText("The date selection box cannot be empty.");
+            a.setContentText("The phone number field cannot be empty.");
             a.showAndWait();
             return true;
         }
