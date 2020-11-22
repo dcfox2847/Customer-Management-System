@@ -57,7 +57,6 @@ public class LoginController implements Initializable {
         loginAlert.setTitle(resources.getString("alertTitle"));
         loginAlert.setHeaderText(resources.getString("alertHeader"));
         loginAlert.setContentText(resources.getString("alertMessage"));
-
     }
 
     // Form control handling methods
@@ -83,7 +82,6 @@ public class LoginController implements Initializable {
             stage.show();
         }else{
             Log.writeLog(000, "Invalid Login", false);
-            loginAlert.setContentText("Invalid Username or Password. Please try again.");
             loginAlert.show();
         }
 
