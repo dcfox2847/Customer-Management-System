@@ -40,6 +40,7 @@ public class AddAppointmentController implements Initializable {
     @FXML private TextField contactField;
     @FXML private ComboBox<String> cityComboBox;
     @FXML private TextField timeField;
+    @FXML private TextField endTimeField;
 
     // Class Variables
     LocalDate date;
@@ -98,7 +99,14 @@ public class AddAppointmentController implements Initializable {
         if (timeField.getText() == null || timeField.getText().trim().isEmpty()) {
             Alert a = new Alert(Alert.AlertType.ERROR);
             a.setHeaderText("Error");
-            a.setContentText("The appointment time field cannot be empty.");
+            a.setContentText("The appointment start time field cannot be empty.");
+            a.showAndWait();
+            return true;
+        }
+        if (endTimeField.getText() == null || endTimeField.getText().trim().isEmpty()) {
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setHeaderText("Error");
+            a.setContentText("The appointment end time field cannot be empty.");
             a.showAndWait();
             return true;
         }
@@ -172,7 +180,7 @@ public class AddAppointmentController implements Initializable {
         if(!overlappingAppointment && !outsideHours) {
             if (getTime(timeField.getText())) {
                 dao.dbAppointment.addAppointment(cust.getcID(), typeField.getText(), descriptionField.getText(), contactField.getText(), cityComboBox.getSelectionModel().getSelectedItem(),
-                        getDate(), timeField.getText());
+                        getDate(), timeField.getText(), endTimeField.getText());
                 Alert a = new Alert(Alert.AlertType.CONFIRMATION);
                 a.setTitle("Entry added");
                 a.setHeaderText("Entry added");
@@ -185,6 +193,7 @@ public class AddAppointmentController implements Initializable {
                 cityComboBox.setItems(comboCities);
                 cityComboBox.getSelectionModel().clearSelection();
                 timeField.setText("");
+                endTimeField.setText("");
                 customerComboBox.getSelectionModel().clearSelection();
                 datePicker.setValue(null);
             } else {

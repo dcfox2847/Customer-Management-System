@@ -146,13 +146,15 @@ public class dbAppointment {
     }
 
     // Function to add a new appointment to the database
-    public static boolean addAppointment(int id, String type, String description, String contact, String location, String date, String time){
+    public static boolean addAppointment(int id, String type, String description, String contact, String location, String date, String time, String endTime){
         String preConvertedString = date + " " + time;  // The local time and date as String
+        String preConvertedEndString = date + " " + endTime;
         LocalDateTime dateTimeString = changeToUtc(preConvertedString); // Time and date for UTC as LocalDateTime class
+        LocalDateTime endDateTimeString = changeToUtc(preConvertedEndString);
         try{
             String query = "INSERT INTO appointment SET customerId='" + id + "', userId='" + LoginController.currUser.getUserID() + "', title='" + type +
                     "', description='" + description + "', location='" + location + "', contact='" + contact + "', type='" + type + "', url='', start='" + dateTimeString +
-                    "', end='" + preConvertedString + "', createDate=NOW(), createdBy='test', lastUpdateBy='tester'";
+                    "', end='" + endDateTimeString + "', createDate=NOW(), createdBy='test', lastUpdateBy='tester'";
             int added = stmt.executeUpdate(query);
             if(added == 1){
                 System.out.println("Appointment added: " + added);

@@ -12,3 +12,4 @@ User ID: 1 , User Name: test , Time: 2020-08-31T03:44:59.903-04:00[America/New_Y
 User ID: 1 , User Name: test , Time: 2020-11-22T02:47:56.137-05:00[America/New_York] , Login Successful:  True
 User ID: 0 , User Name: Invalid Login , Time: 2020-11-22T02:48:09.717-05:00[America/New_York] , Login Successful:  False
 User ID: 0 , User Name: Invalid Login , Time: 2020-11-22T02:48:40.497-05:00[America/New_York] , Login Successful:  False
+User ID: 1 , User Name: test , Time: 2020-12-06T22:48:52.148-05:00[America/New_York] , Login Successful:  True
