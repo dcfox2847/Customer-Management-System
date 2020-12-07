@@ -19,6 +19,9 @@ public class Appointment {
     private final SimpleStringProperty aDesc = new SimpleStringProperty();
     private final SimpleStringProperty aLocation = new SimpleStringProperty();
     private final SimpleStringProperty aContact = new SimpleStringProperty();
+    private final SimpleStringProperty aDuration = new SimpleStringProperty();
+
+
 
     // Object constructors
     public Appointment() {}
@@ -132,6 +135,12 @@ public class Appointment {
     public SimpleStringProperty aCustNameProperty() { return aCustName; }
 
     public void setaCustName(String aCustName) { this.aCustName.set(aCustName); }
+
+    public String getaDuration() { return aDuration.get(); }
+
+    public SimpleStringProperty aDurationProperty() { return aDuration; }
+
+    public void setaDuration(String aDuration) { this.aDuration.set(aDuration); }
 
     // Additional methods for date and time formatting
 

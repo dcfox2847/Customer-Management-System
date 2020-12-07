@@ -16,11 +16,14 @@ import javafx.fxml.*;
 import javafx.scene.*;
 import javafx.stage.*;
 
+import java.io.Console;
 import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 import java.util.ResourceBundle;
@@ -41,6 +44,7 @@ public class MainScreenController implements Initializable {
     @FXML private TableColumn<Appointment, String> aptLocationColumn;
     @FXML private TableColumn<Appointment, String> aptStartColumn;
     @FXML private TableColumn<Appointment, String> aptEndColumn;
+    @FXML private TableColumn<Appointment, String> aptDurationColumn;
     @FXML private RadioButton aptWeeklyRadio = new RadioButton("aptWeeklyRadio");
     @FXML private RadioButton aptMonthlyRadio = new RadioButton("aptMonthlyRadio");
 
@@ -132,9 +136,12 @@ public class MainScreenController implements Initializable {
         appointmentMonth = dao.dbAppointment.getMonthlyApt(LoginController.currUser.getUserID());
         // Get time zone by city
         assert appointmentMonth != null;
+        LocalDateTime aptStart = null;
+        LocalDateTime aptEnd = null;
         for(Appointment apt : appointmentMonth){
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             LocalDateTime startTime = LocalDateTime.parse(apt.getaStartTime(), dtf);
+            LocalDateTime endTime = LocalDateTime.parse(apt.getaEndTime(), dtf);
             String timeZone;
             String cityLocation = apt.getaLocation();
             if (cityLocation.compareTo("New York") == 0 || cityLocation.compareTo("Pickerington") ==0){
@@ -157,15 +164,28 @@ public class MainScreenController implements Initializable {
                 System.out.println("Else conditional..... UTC");
             }
             String newLocalTime = String.valueOf(dbAppointment.changeFromUtc(startTime, timeZone));
+            String newEndLocalTime = String.valueOf(dbAppointment.changeFromUtc(endTime, timeZone));
             String localTimeFixed = newLocalTime.replace('T', ' ') + ":00";
+            String localEndTimeFixed = newEndLocalTime.replace('T', ' ') + ":00";
             apt.setaStartTime(localTimeFixed);
+            apt.setaEndTime(localEndTimeFixed);
+            aptStart = startTime;
+            aptEnd = endTime;
+            Duration total = Duration.ofMinutes(ChronoUnit.MINUTES.between(aptStart, aptEnd));
+            long hours = total.toHours();
+            long minutes = total.minusHours(hours).toMinutes();
+            String durationTime = hours + " Hr. " + minutes + " Min.";
+            apt.setaDuration(durationTime);
         }
         aptIdColumn.setCellValueFactory(new PropertyValueFactory<Appointment, Integer>("aCustID"));
         aptCustNameColumn.setCellValueFactory(new PropertyValueFactory<Appointment, String>("aCustName"));
         aptDescriptionColumn.setCellValueFactory(new PropertyValueFactory<Appointment, String>("aDesc"));
         aptLocationColumn.setCellValueFactory(new PropertyValueFactory<Appointment, String>("aLocation"));
         aptStartColumn.setCellValueFactory(new PropertyValueFactory<Appointment, String >("aStartTime"));
-//        aptEndColumn.setCellValueFactory(new PropertyValueFactory<Appointment, String>("aEndTime"));
+        aptEndColumn.setCellValueFactory(new PropertyValueFactory<Appointment, String>("aEndTime"));
+        aptDurationColumn.setCellValueFactory(new PropertyValueFactory<Appointment, String>("aDuration"));
+        //Test to add duration
+
         aptTableView.setItems(appointmentMonth);
     }
 
@@ -195,6 +215,7 @@ public class MainScreenController implements Initializable {
             System.out.println("Appointment: " + apt.getaID() + " Start time: " + apt.getaStartTime());
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             LocalDateTime startTime = LocalDateTime.parse(apt.getaStartTime(), dtf);
+            LocalDateTime endTime = LocalDateTime.parse(apt.getaEndTime(), dtf);
             String timeZone;
             String cityLocation = apt.getaLocation();
             if (cityLocation.compareTo("New York") == 0 || cityLocation.compareTo("Pickerington") ==0){
@@ -222,15 +243,18 @@ public class MainScreenController implements Initializable {
                 System.out.println("Else conditional..... UTC");
             }
             String newLocalTime = String.valueOf(dbAppointment.changeFromUtc(startTime, timeZone));
+            String newLocalEndTime = String.valueOf(dbAppointment.changeFromUtc(endTime, timeZone));
             String localTimeFixed = newLocalTime.replace('T', ' ') + ":00";
+            String localEndTimeFixed = newLocalEndTime.replace('T', ' ') + ":00";
             apt.setaStartTime(localTimeFixed);
+            apt.setaEndTime(localEndTimeFixed);
         }
         aptIdColumn.setCellValueFactory(new PropertyValueFactory<Appointment, Integer>("aCustID"));
         aptCustNameColumn.setCellValueFactory(new PropertyValueFactory<Appointment, String>("aCustName"));
         aptDescriptionColumn.setCellValueFactory(new PropertyValueFactory<Appointment, String>("aDesc"));
         aptLocationColumn.setCellValueFactory(new PropertyValueFactory<Appointment, String>("aLocation"));
         aptStartColumn.setCellValueFactory(new PropertyValueFactory<Appointment, String >("aStartTime"));
-//        aptEndColumn.setCellValueFactory(new PropertyValueFactory<Appointment, String>("aEndTime"));
+        aptEndColumn.setCellValueFactory(new PropertyValueFactory<Appointment, String>("aEndTime"));
         aptTableView.setItems(appointmentWeek);
     }
 
@@ -245,6 +269,7 @@ public class MainScreenController implements Initializable {
             System.out.println("Appointment: " + apt.getaID() + " Start time: " + apt.getaStartTime());
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             LocalDateTime startTime = LocalDateTime.parse(apt.getaStartTime(), dtf);
+            LocalDateTime endTime = LocalDateTime.parse(apt.getaEndTime(), dtf);
             String timeZone;
             String cityLocation = apt.getaLocation();
             if (cityLocation.compareTo("New York") == 0 || cityLocation.compareTo("Pickerington") ==0){
@@ -272,15 +297,18 @@ public class MainScreenController implements Initializable {
                 System.out.println("Else conditional..... UTC");
             }
             String newLocalTime = String.valueOf(dbAppointment.changeFromUtc(startTime, timeZone));
+            String newLocalEndTime = String.valueOf(dbAppointment.changeFromUtc(endTime, timeZone));
             String localTimeFixed = newLocalTime.replace('T', ' ') + ":00";
+            String localEndTimeFixed = newLocalEndTime.replace('T', ' ') + ":00";
             apt.setaStartTime(localTimeFixed);
+            apt.setaEndTime(localEndTimeFixed);
         }
         aptIdColumn.setCellValueFactory(new PropertyValueFactory<Appointment, Integer>("aCustID"));
         aptCustNameColumn.setCellValueFactory(new PropertyValueFactory<Appointment, String>("aCustName"));
         aptDescriptionColumn.setCellValueFactory(new PropertyValueFactory<Appointment, String>("aDesc"));
         aptLocationColumn.setCellValueFactory(new PropertyValueFactory<Appointment, String>("aLocation"));
         aptStartColumn.setCellValueFactory(new PropertyValueFactory<Appointment, String >("aStartTime"));
-//        aptEndColumn.setCellValueFactory(new PropertyValueFactory<Appointment, String>("aEndTime"));
+        aptEndColumn.setCellValueFactory(new PropertyValueFactory<Appointment, String>("aEndTime"));
         aptTableView.setItems(appointmentMonth);
     }
 

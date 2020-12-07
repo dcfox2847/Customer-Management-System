@@ -167,13 +167,15 @@ public class dbAppointment {
     }
 
     // Function to modify an existing appointment
-    public static boolean modifyAppointment(int id, String type, String contact, String location, String date, String time){
+    public static boolean modifyAppointment(int id, String type, String contact, String location, String date, String time, String endTime){
         String preConvertedString = date + " " + time;
+        String preConvertedEndString = date + " " + endTime;
         LocalDateTime dateTimeString = changeToUtc(preConvertedString);
+        LocalDateTime endDateTimeString = changeToUtc(preConvertedEndString);
         try{
             //SQL UPDATE STATEMENT
             String query = " UPDATE appointment SET title='" + type + "', description='" + type + "', contact='" + contact + "', location='" + location +
-                    "', start='" + dateTimeString + "' WHERE appointmentId=" + id;
+                    "', start='" + dateTimeString + "', end='" + endDateTimeString + "' WHERE appointmentId=" + id;
             int added = stmt.executeUpdate(query);
             if(added==1){
                 System.out.println("Appointment has been modified.");

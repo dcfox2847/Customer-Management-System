@@ -50,13 +50,29 @@
                      <VBox.margin>
                         <Insets bottom="15.0" top="15.0" />
                      </VBox.margin></Label>
-                  <Label text="Time">
+                  <Label text="Start Time">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                      <VBox.margin>
                         <Insets bottom="15.0" top="15.0" />
                      </VBox.margin></Label>
+                  <Label text="End Time">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="15.0" top="12.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label text="Appointment Duration">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="15.0" top="12.0" />
+                     </VBox.margin>
+                  </Label>
                </children></VBox>
             <VBox alignment="CENTER" prefHeight="370.0" prefWidth="305.0">
                <children>
@@ -72,7 +88,13 @@
                      <VBox.margin>
                         <Insets bottom="10.0" top="12.0" />
                      </VBox.margin></TextField>
-                  <ComboBox fx:id="cityComboBox" prefWidth="150.0" />
+                  <ComboBox fx:id="cityComboBox" prefWidth="150.0">
+                     <VBox.margin>
+                        <Insets bottom="4.0" />
+                     </VBox.margin>
+                     <padding>
+                        <Insets bottom="3.0" />
+                     </padding></ComboBox>
                   <DatePicker fx:id="appointmentDatePicker">
                      <VBox.margin>
                         <Insets bottom="10.0" top="12.0" />
@@ -81,6 +103,15 @@
                      <VBox.margin>
                         <Insets bottom="10.0" top="12.0" />
                      </VBox.margin></TextField>
+                  <TextField fx:id="endTimeTextField">
+                     <VBox.margin>
+                        <Insets bottom="6.0" top="15.0" />
+                     </VBox.margin></TextField>
+                  <TextField fx:id="durationTextField" editable="false">
+                     <VBox.margin>
+                        <Insets top="12.0" />
+                     </VBox.margin>
+                  </TextField>
                </children></VBox>
          </children>
       </HBox>

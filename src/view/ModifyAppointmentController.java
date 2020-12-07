@@ -17,9 +17,12 @@ import model.Appointment;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.sql.Time;
+import java.text.SimpleDateFormat;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class ModifyAppointmentController implements Initializable {
@@ -33,6 +36,8 @@ public class ModifyAppointmentController implements Initializable {
     @FXML private TextField contactTextField;
     @FXML private ComboBox<String> cityComboBox;
     @FXML private TextField timeTextField;
+    @FXML private TextField endTimeTextField;
+    @FXML private TextField durationTextField;
     @FXML private DatePicker appointmentDatePicker;
 
     // CLASS VARIABLES
@@ -43,6 +48,22 @@ public class ModifyAppointmentController implements Initializable {
     public ModifyAppointmentController() { }
 
     // Class Methods and Functions
+
+    // Function to make sure that the appointment time isn't show as negative
+    public boolean checkDuration(){
+        String timeString = timeTextField.getText();
+        String endTimeString = endTimeTextField.getText();
+        LocalTime start = LocalTime.parse(timeString);
+        LocalTime end = LocalTime.parse(endTimeString);
+        if(end.isBefore(start)){
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setHeaderText("Error");
+            a.setContentText("The appointment duration is a negative number. Please check that the appointment end time is after the start time.");
+            a.showAndWait();
+            return true;
+        }
+        return false;
+    }
 
     // Function to check and see that all forms have the proper data in them before attempting to send data to the DB
     public Boolean checkEmptyFields(){
@@ -63,7 +84,21 @@ public class ModifyAppointmentController implements Initializable {
         if (timeTextField.getText() == null || timeTextField.getText().trim().isEmpty()) {
             Alert a = new Alert(Alert.AlertType.ERROR);
             a.setHeaderText("Error");
-            a.setContentText("The appointment time field cannot be empty.");
+            a.setContentText("The appointment start time field cannot be empty.");
+            a.showAndWait();
+            return true;
+        }
+        if (endTimeTextField.getText() == null || endTimeTextField.getText().trim().isEmpty()) {
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setHeaderText("Error");
+            a.setContentText("The appointment end time field cannot be empty.");
+            a.showAndWait();
+            return true;
+        }
+        if (durationTextField.getText() == null || durationTextField.getText().trim().isEmpty()) {
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setHeaderText("Error");
+            a.setContentText("The duration time field cannot be empty.");
             a.showAndWait();
             return true;
         }
@@ -89,6 +124,9 @@ public class ModifyAppointmentController implements Initializable {
         if(checkEmptyFields()){
             return;
         }
+        if(checkDuration()){
+            return;
+        }
         boolean overlappingAppointment = false;
         boolean outsideHours = false;
         overlappingAppointment = dbAppointment.overlappingAppointment(Integer.parseInt(idTextField.getText()), cityComboBox.getValue(),
@@ -99,7 +137,7 @@ public class ModifyAppointmentController implements Initializable {
         // Use functions to test for
         if (!overlappingAppointment && !outsideHours) {
             if (dao.dbAppointment.modifyAppointment(Integer.parseInt(idTextField.getText()), typeTextField.getText(), contactTextField.getText(),
-                    cityComboBox.getSelectionModel().getSelectedItem(), String.valueOf(appointmentDatePicker.getValue()), timeTextField.getText())) {
+                    cityComboBox.getSelectionModel().getSelectedItem(), String.valueOf(appointmentDatePicker.getValue()), timeTextField.getText(), endTimeTextField.getText())){
                 Alert a = new Alert(Alert.AlertType.CONFIRMATION);
                 a.setTitle("Entry added");
                 a.setHeaderText("Entry added");
@@ -112,6 +150,7 @@ public class ModifyAppointmentController implements Initializable {
                 cityComboBox.getSelectionModel().clearSelection();
                 appointmentDatePicker.setValue(null);
                 timeTextField.setText("");
+                endTimeTextField.setText("");
             } else {
                 Alert a = new Alert(Alert.AlertType.ERROR);
                 a.setTitle("Error with Sql");
@@ -230,13 +269,24 @@ public class ModifyAppointmentController implements Initializable {
         }
         // Parse the time from the local date object to the appropriate time based on the appointments location.
         String timeString = modifyAppointment.getaStartTime();
+        String endTimeString = modifyAppointment.getaEndTime();
+        ZoneId oldZone = ZoneId.systemDefault();
+        ZoneId newZone = ZoneId.of(timeZone);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime testTime = LocalDateTime.parse(timeString, formatter);
-        String formattedStringTime = testTime.format(formatter);
-;//        LocalDateTime dbTime = dbAppointment.changeToUtc(timeString);
+        LocalDateTime newZoneTestTime = testTime.atZone(oldZone).withZoneSameInstant(newZone).toLocalDateTime();
+        LocalDateTime endTestTime = LocalDateTime.parse(endTimeString, formatter);
+        LocalDateTime newZoneEndTestTime = endTestTime.atZone(oldZone).withZoneSameInstant(newZone).toLocalDateTime();
+
+        String formattedStringTime = newZoneTestTime.format(formatter);
+        String endFormattedStringTime = newZoneEndTestTime.format(formatter);
+//        LocalDateTime dbTime = dbAppointment.changeToUtc(timeString);
 //        LocalDateTime utcTime = dbAppointment.changeFromUtc(testTime, timeZone);
 //        String testTime2 = String.valueOf(utcTime);
         String finalTime = formattedStringTime.substring(11);
+        String finalEndTime = endFormattedStringTime.substring(11);
         timeTextField.setText(finalTime);
+        endTimeTextField.setText(finalEndTime);
+        durationTextField.setText(modifyAppointment.getaDuration());
     }
 }
