@@ -20,6 +20,7 @@ public class Appointment {
     private final SimpleStringProperty aLocation = new SimpleStringProperty();
     private final SimpleStringProperty aContact = new SimpleStringProperty();
     private final SimpleStringProperty aDuration = new SimpleStringProperty();
+    private final SimpleStringProperty aUserStartTime = new SimpleStringProperty();
 
 
 
@@ -141,6 +142,12 @@ public class Appointment {
     public SimpleStringProperty aDurationProperty() { return aDuration; }
 
     public void setaDuration(String aDuration) { this.aDuration.set(aDuration); }
+
+    public String getaUserStartTime() { return aUserStartTime.get(); }
+
+    public SimpleStringProperty aUserStartTimeProperty() { return aUserStartTime; }
+
+    public void setaUserStartTime(String aUserStartTime) { this.aUserStartTime.set(aUserStartTime); }
 
     // Additional methods for date and time formatting
 

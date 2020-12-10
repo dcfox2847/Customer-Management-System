@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="650.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MainScreenController">
+<AnchorPane prefHeight="650.0" prefWidth="1245.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MainScreenController">
    <children>
       <Label alignment="CENTER" layoutX="109.0" layoutY="14.0" prefHeight="66.0" prefWidth="583.0" text="Main Menu">
          <font>
@@ -46,15 +46,16 @@
             </Button>
          </children>
       </HBox>
-      <TableView fx:id="aptTableView" layoutX="32.0" layoutY="83.0" prefHeight="449.0" prefWidth="1140.0">
+      <TableView fx:id="aptTableView" layoutX="32.0" layoutY="83.0" prefHeight="449.0" prefWidth="1191.0">
         <columns>
-          <TableColumn fx:id="aptIdColumn" prefWidth="82.0" text="Customer ID" />
-          <TableColumn fx:id="aptCustNameColumn" prefWidth="156.0" text="Customer Name" />
-            <TableColumn fx:id="aptDescriptionColumn" prefWidth="389.0" text="Appointment Description" />
-            <TableColumn fx:id="aptLocationColumn" minWidth="0.0" prefWidth="134.0" text="Location" />
-            <TableColumn fx:id="aptStartColumn" prefWidth="146.0" text="Start Time" />
-            <TableColumn fx:id="aptEndColumn" prefWidth="149.0" text="End Time" />
-            <TableColumn fx:id="aptDurationColumn" prefWidth="83.0" text="Apt. Length" />
+          <TableColumn fx:id="aptIdColumn" text="Customer ID" />
+          <TableColumn fx:id="aptCustNameColumn" prefWidth="125.0" text="Customer Name" />
+            <TableColumn fx:id="aptDescriptionColumn" prefWidth="257.0" text="Appointment Description" />
+            <TableColumn fx:id="aptLocationColumn" minWidth="0.0" prefWidth="91.0" text="Location" />
+            <TableColumn fx:id="aptStartColumn" prefWidth="174.0" text="Start Time(Your location)" />
+            <TableColumn fx:id="aptCustStartColumn" prefWidth="191.0" text="Start Time (Customer location)" />
+            <TableColumn fx:id="aptEndColumn" prefWidth="134.0" text="End Time" />
+            <TableColumn fx:id="aptDurationColumn" prefWidth="162.0" text="Apt. Length" />
         </columns>
       </TableView>
       <HBox alignment="CENTER" layoutX="930.0" layoutY="544.0" prefHeight="90.0" prefWidth="154.0">
