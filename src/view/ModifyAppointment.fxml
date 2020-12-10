@@ -11,53 +11,60 @@
          <font>
             <Font size="24.0" />
          </font></Label>
-      <HBox layoutX="73.0" layoutY="95.0" prefHeight="370.0" prefWidth="577.0">
+      <HBox layoutX="26.0" layoutY="54.0" prefHeight="455.0" prefWidth="624.0">
          <children>
             <VBox alignment="CENTER" prefHeight="370.0" prefWidth="298.0">
                <children>
-                  <Label text="Appointment ID">
+                  <Label text="Appointment ID:">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                      <VBox.margin>
                         <Insets bottom="15.0" top="15.0" />
                      </VBox.margin></Label>
-                  <Label text="Appointment Type">
+                  <Label text="Appointment Type:">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                      <VBox.margin>
                         <Insets bottom="15.0" top="15.0" />
                      </VBox.margin></Label>
-                  <Label text="Contact">
+                  <Label text="Contact:">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                      <VBox.margin>
                         <Insets bottom="15.0" top="15.0" />
                      </VBox.margin></Label>
-                  <Label text="Location">
+                  <Label text="Location:">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                      <VBox.margin>
                         <Insets bottom="15.0" top="15.0" />
                      </VBox.margin></Label>
-                  <Label text="Date">
+                  <Label text="Date:">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                      <VBox.margin>
                         <Insets bottom="15.0" top="15.0" />
                      </VBox.margin></Label>
-                  <Label text="Start Time">
+                  <Label text="Your appointment start time:">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                      <VBox.margin>
                         <Insets bottom="15.0" top="15.0" />
                      </VBox.margin></Label>
-                  <Label text="End Time">
+                  <Label text="Start time for the customer:">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="15.0" top="12.0" />
+                     </VBox.margin></Label>
+                  <Label text="Your appointment end time:">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
@@ -65,18 +72,26 @@
                         <Insets bottom="15.0" top="12.0" />
                      </VBox.margin>
                   </Label>
-                  <Label text="Appointment Duration">
+                  <Label text="End time for the customer:">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                      <VBox.margin>
-                        <Insets bottom="15.0" top="12.0" />
+                        <Insets bottom="5.0" top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label text="Appointment Duration:">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="15.0" top="16.0" />
                      </VBox.margin>
                   </Label>
                </children></VBox>
-            <VBox alignment="CENTER" prefHeight="370.0" prefWidth="305.0">
+            <VBox alignment="CENTER" prefHeight="438.0" prefWidth="293.0">
                <children>
-                  <TextField fx:id="idTextField" editable="false">
+                  <TextField fx:id="idTextField" editable="false" style="-fx-background-color: gainsboro;">
                      <VBox.margin>
                         <Insets bottom="10.0" top="12.0" />
                      </VBox.margin></TextField>
@@ -103,10 +118,19 @@
                      <VBox.margin>
                         <Insets bottom="10.0" top="12.0" />
                      </VBox.margin></TextField>
+                  <TextField fx:id="custTimeTextField" editable="false" style="-fx-background-color: Gainsboro;">
+                     <VBox.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                     </VBox.margin></TextField>
                   <TextField fx:id="endTimeTextField">
                      <VBox.margin>
                         <Insets bottom="6.0" top="15.0" />
                      </VBox.margin></TextField>
+                  <TextField fx:id="custEndTimeTextField" editable="false" style="-fx-background-color: gainsboro;">
+                     <VBox.margin>
+                        <Insets top="12.0" />
+                     </VBox.margin>
+                  </TextField>
                   <TextField fx:id="durationTextField" editable="false">
                      <VBox.margin>
                         <Insets top="12.0" />

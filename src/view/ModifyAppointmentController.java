@@ -36,7 +36,9 @@ public class ModifyAppointmentController implements Initializable {
     @FXML private TextField contactTextField;
     @FXML private ComboBox<String> cityComboBox;
     @FXML private TextField timeTextField;
+    @FXML private TextField custTimeTextField;
     @FXML private TextField endTimeTextField;
+    @FXML private TextField custEndTimeTextField;
     @FXML private TextField durationTextField;
     @FXML private DatePicker appointmentDatePicker;
 
@@ -273,20 +275,29 @@ public class ModifyAppointmentController implements Initializable {
         ZoneId oldZone = ZoneId.systemDefault();
         ZoneId newZone = ZoneId.of(timeZone);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        // Get the time and date for the customer and for the user
         LocalDateTime testTime = LocalDateTime.parse(timeString, formatter);
-        LocalDateTime newZoneTestTime = testTime.atZone(oldZone).withZoneSameInstant(newZone).toLocalDateTime();
+//        String testerUser = testTime.format(formatter);
+        LocalDateTime newZoneTestTime = testTime.atZone(newZone).withZoneSameInstant(oldZone).toLocalDateTime();
         LocalDateTime endTestTime = LocalDateTime.parse(endTimeString, formatter);
-        LocalDateTime newZoneEndTestTime = endTestTime.atZone(oldZone).withZoneSameInstant(newZone).toLocalDateTime();
-
+        LocalDateTime newZoneEndTestTime = endTestTime.atZone(newZone).withZoneSameInstant(oldZone).toLocalDateTime();
+        // Get the formatted string for the user and the customer
         String formattedStringTime = newZoneTestTime.format(formatter);
+//        String customerFormattedStringTime = custNewZoneTestTime.format(formatter);
         String endFormattedStringTime = newZoneEndTestTime.format(formatter);
+//        String customerEndFormattedStringTime = custNewZoneEndTestTime.format(formatter);
 //        LocalDateTime dbTime = dbAppointment.changeToUtc(timeString);
 //        LocalDateTime utcTime = dbAppointment.changeFromUtc(testTime, timeZone);
 //        String testTime2 = String.valueOf(utcTime);
+//        String testerTester = timeString.substring(11);
         String finalTime = formattedStringTime.substring(11);
+        // Insert the substring for the customers time here
         String finalEndTime = endFormattedStringTime.substring(11);
-        timeTextField.setText(finalTime);
+        // Insert the substring for the customers end time hereS
+        timeTextField.setText(finalTime); // re-use 'finalTime'
+        custTimeTextField.setText(timeString.substring(11));
         endTimeTextField.setText(finalEndTime);
+        custEndTimeTextField.setText(endTimeString.substring(11));
         durationTextField.setText(modifyAppointment.getaDuration());
     }
 }

@@ -257,7 +257,7 @@ public class dbAppointment {
                 weekendReturn = weekendResultSet.getInt("dayNumber");
                 System.out.println("SQL number for the day: " + weekendReturn);
             }
-            if (weekendReturn == 1 || weekendReturn == 6) {
+            if (weekendReturn == 1 || weekendReturn == 7) {
                 return true;
             } else {
                 ResultSet businessHoursResultSet = stmt.executeQuery(queryBusinessHours);

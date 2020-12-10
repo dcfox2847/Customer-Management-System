@@ -1,17 +1,3 @@
-User ID: 0 , User Name: Invalid Login , Time: 2020-08-31T02:26:55.132-04:00[America/New_York] , Login Successful:  False
-User ID: 1 , User Name: test , Time: 2020-08-31T02:30:53.458-04:00[America/New_York] , Login Successful:  True
-User ID: 1 , User Name: test , Time: 2020-08-31T02:58:17.831-04:00[America/New_York] , Login Successful:  True
-User ID: 1 , User Name: test , Time: 2020-08-31T03:01:11.436-04:00[America/New_York] , Login Successful:  True
-User ID: 1 , User Name: test , Time: 2020-08-31T03:02:55.773-04:00[America/New_York] , Login Successful:  True
-User ID: 1 , User Name: test , Time: 2020-08-31T03:03:29.949-04:00[America/New_York] , Login Successful:  True
-User ID: 1 , User Name: test , Time: 2020-08-31T03:11:17.485-04:00[America/New_York] , Login Successful:  True
-User ID: 1 , User Name: test , Time: 2020-08-31T03:23:57.591-04:00[America/New_York] , Login Successful:  True
-User ID: 0 , User Name: Invalid Login , Time: 2020-08-31T03:30:45.600-04:00[America/New_York] , Login Successful:  False
-User ID: 1 , User Name: test , Time: 2020-08-31T03:30:49.870-04:00[America/New_York] , Login Successful:  True
-User ID: 1 , User Name: test , Time: 2020-08-31T03:44:59.903-04:00[America/New_York] , Login Successful:  True
-User ID: 1 , User Name: test , Time: 2020-11-22T02:47:56.137-05:00[America/New_York] , Login Successful:  True
-User ID: 0 , User Name: Invalid Login , Time: 2020-11-22T02:48:09.717-05:00[America/New_York] , Login Successful:  False
-User ID: 0 , User Name: Invalid Login , Time: 2020-11-22T02:48:40.497-05:00[America/New_York] , Login Successful:  False
 User ID: 1 , User Name: test , Time: 2020-12-06T22:48:52.148-05:00[America/New_York] , Login Successful:  True
 User ID: 1 , User Name: test , Time: 2020-12-06T23:43:37.046-05:00[America/New_York] , Login Successful:  True
 User ID: 1 , User Name: test , Time: 2020-12-07T00:10:38.214-05:00[America/New_York] , Login Successful:  True
@@ -41,3 +27,17 @@ User ID: 1 , User Name: test , Time: 2020-12-07T02:40:42.899-05:00[America/New_Y
 User ID: 1 , User Name: test , Time: 2020-12-07T02:42:37.092-05:00[America/New_York] , Login Successful:  True
 User ID: 1 , User Name: test , Time: 2020-12-07T02:52:38.027-05:00[America/New_York] , Login Successful:  True
 User ID: 1 , User Name: test , Time: 2020-12-07T03:17:38.504-05:00[America/New_York] , Login Successful:  True
+User ID: 1 , User Name: test , Time: 2020-12-07T03:28:20.527-05:00[America/New_York] , Login Successful:  True
+User ID: 1 , User Name: test , Time: 2020-12-07T03:30:45.625-05:00[America/New_York] , Login Successful:  True
+User ID: 1 , User Name: test , Time: 2020-12-07T14:45:48.543-05:00[America/New_York] , Login Successful:  True
+User ID: 1 , User Name: test , Time: 2020-12-10T01:36:22.589-05:00[America/New_York] , Login Successful:  True
+User ID: 1 , User Name: test , Time: 2020-12-10T01:38:07.702-05:00[America/New_York] , Login Successful:  True
+User ID: 1 , User Name: test , Time: 2020-12-10T01:43:54.684-05:00[America/New_York] , Login Successful:  True
+User ID: 1 , User Name: test , Time: 2020-12-10T01:46:31.865-05:00[America/New_York] , Login Successful:  True
+User ID: 1 , User Name: test , Time: 2020-12-10T01:50:36.510-05:00[America/New_York] , Login Successful:  True
+User ID: 1 , User Name: test , Time: 2020-12-10T01:53:56.830-05:00[America/New_York] , Login Successful:  True
+User ID: 1 , User Name: test , Time: 2020-12-10T01:55:37.928-05:00[America/New_York] , Login Successful:  True
+User ID: 1 , User Name: test , Time: 2020-12-10T01:57:37.615-05:00[America/New_York] , Login Successful:  True
+User ID: 1 , User Name: test , Time: 2020-12-10T02:14:49.669-05:00[America/New_York] , Login Successful:  True
+User ID: 1 , User Name: test , Time: 2020-12-10T02:17:18.253-05:00[America/New_York] , Login Successful:  True
+User ID: 1 , User Name: test , Time: 2020-12-10T02:37:04.911-05:00[America/New_York] , Login Successful:  True
