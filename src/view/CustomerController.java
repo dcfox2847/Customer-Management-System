@@ -59,9 +59,7 @@ public class CustomerController implements Initializable {
 
     }
 
-    // TEST FUNCTION:
     // This function takes the selection from the table that you have, and retrieves the information from the selected row.
-    // FIND A WAY TO PASS THIS DATA TO THE NEXT SCENE!!!
     public void getCustomerFromTable(javafx.event.ActionEvent actionEvent) {
         customer = custTableView.getSelectionModel().getSelectedItem();
         ModifyCustomerController.modifyCustomer = customer;
@@ -131,8 +129,6 @@ public class CustomerController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Delete");
             alert.setContentText("Item Deleted");
-//            ButtonType okButton = new ButtonType("Ok", ButtonBar.ButtonData.YES);
-            // lambda expression used to show that customer item was deleted.
             alert.showAndWait().ifPresent(type -> {
                 if (type == ButtonType.OK){
                     System.out.println("Button Clicked. Item Deleted.");
@@ -142,6 +138,5 @@ public class CustomerController implements Initializable {
         }
     }
 
-    // Test to try passing customer data
 
 }
