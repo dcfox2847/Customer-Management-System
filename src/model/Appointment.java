@@ -202,18 +202,4 @@ public class Appointment {
         return ld;
     }
 
-//    public String get15Time() {
-//        DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
-//        LocalDateTime ldt = LocalDateTime.parse(this.aStartTime.getValue(), df);
-//        ZonedDateTime zdt = ldt.atZone(ZoneId.of("UTC"));
-//        ZoneId zid = ZoneId.systemDefault();
-//        ZonedDateTime utcDate = zdt.withZoneSameInstant(zid);
-//        DateTimeFormatter tFormatter = DateTimeFormatter.ofPattern("kk:mm");
-//        LocalTime localTime = LocalTime.parse(utcDate.toString().substring(11,16), tFormatter);
-//        return localTime.toString();
-//    }
-
-    /*
-    INSERT THE METHODS NEEDED FOR CHANGING THE DATES AND TIMES HERE
-     */
 }
